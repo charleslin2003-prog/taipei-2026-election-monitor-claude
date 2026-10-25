@@ -1,0 +1,50 @@
+{
+  "updated_at": "2026-10-25T19:40:31+00:00",
+  "mode": "backfill",
+  "total": 7898,
+  "added": 7898,
+  "sources": {
+    "Google 新聞": {
+      "ok": true,
+      "fetched": 12216,
+      "errors": [],
+      "kept": 7845
+    },
+    "台灣事實查核中心": {
+      "ok": true,
+      "fetched": 10,
+      "errors": [],
+      "kept": 0
+    },
+    "MyGoPen": {
+      "ok": true,
+      "fetched": 25,
+      "errors": [],
+      "kept": 2
+    },
+    "PTT 八卦板": {
+      "ok": true,
+      "fetched": 19,
+      "errors": [],
+      "kept": 1
+    },
+    "PTT 政黑板": {
+      "ok": true,
+      "fetched": 20,
+      "errors": [],
+      "kept": 6
+    },
+    "Cofacts": {
+      "ok": true,
+      "fetched": 80,
+      "errors": [],
+      "kept": 45
+    }
+  },
+  "llm": {
+    "enabled": false,
+    "labelled": 0,
+    "errors": []
+  },
+  "start_date": "2026-01-01"
+}
