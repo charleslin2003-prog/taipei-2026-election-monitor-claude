@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>台北市長選戰查核台</title>
+<meta name="description" content="2026 台北市長選舉蔣萬安與沈伯洋的新聞攻防、民調與事實查核，每 30 分鐘自動更新。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <div class="eyebrow">2026 九合一 · 台北市長 · 投票日 11/28</div>
+  <h1>蔣萬安 vs 沈伯洋 選戰查核台</h1>
+  <p class="lede">自動蒐集 2026 年以來的新聞、論壇與事實查核文章，分類兩位候選人互相攻擊的報導，並附上人工審核的學經歷與家世查核。每 30 分鐘更新一次。</p>
+  <div class="live" id="live"><span class="dot stale"></span>載入資料中…</div>
+</header>
+
+<div class="vs">
+  <article class="cand" style="--c:var(--chiang)">
+    <h2>蔣萬安 <small>中國國民黨 · 現任市長</small></h2>
+    <dl>
+      <dt>學歷</dt><dd>美國賓州大學法律博士（JD）</dd>
+      <dt>經歷</dt><dd>矽谷律師；2013 返台；立委；2022 當選台北市長</dd>
+      <dt>家世</dt><dd>父蔣孝嚴（原名章孝嚴，後改姓蔣）</dd>
+    </dl>
+  </article>
+  <article class="cand" style="--c:var(--shen)">
+    <h2>沈伯洋 <small>民主進步黨 · 挑戰者</small></h2>
+    <dl>
+      <dt>學歷</dt><dd>台大法律；賓州大學法學碩士（2007）；UC Irvine 博士（2017）</dd>
+      <dt>經歷</dt><dd>台北大學犯罪學研究所副教授；台灣民主實驗室、黑熊學院創辦人；立委</dd>
+      <dt>家世</dt><dd>台北五分埔長大；父經營貿易公司</dd>
+    </dl>
+  </article>
+</div>
+
+<nav class="tabs" role="tablist" aria-label="分頁">
+  <button role="tab" aria-selected="true" data-p="overview">總覽</button>
+  <button role="tab" aria-selected="false" data-p="feed">即時新聞</button>
+  <button role="tab" aria-selected="false" data-p="curated">人工審核攻防</button>
+  <button role="tab" aria-selected="false" data-p="fc">個資查核</button>
+  <button role="tab" aria-selected="false" data-p="poll">民調</button>
+  <button role="tab" aria-selected="false" data-p="method">方法</button>
+</nav>
+
+<section class="panel" id="p-overview">
+  <div class="tiles" id="tiles"></div>
+  <div class="box">
+    <h4>每週攻擊類報導數（依被攻擊方）</h4>
+    <div class="legend"><span><i style="--c:var(--chiang)"></i>攻擊蔣萬安</span><span><i style="--c:var(--shen)"></i>攻擊沈伯洋</span></div>
+    <div id="trend"></div>
+  </div>
+  <div class="grid2">
+    <div class="box"><h4>誰在攻擊誰（發動陣營 × 被攻擊方）</h4><div id="matrix"></div></div>
+    <div class="box"><h4>攻擊類報導的來源類型</h4><div id="layers"></div></div>
+    <div class="box"><h4>攻擊議題</h4><div id="topics"></div></div>
+    <div class="box"><h4>刊登最多攻擊類報導的媒體</h4><div id="outlets"></div></div>
+  </div>
+  <p class="note">以上數字來自自動分類，只依標題字詞判斷，會有誤判。媒體刊登量會受各家立場與選題影響，數量差異不代表攻擊強度。</p>
+</section>
+
+<section class="panel" id="p-feed" hidden>
+  <div class="filters">
+    <label for="q">搜尋 <input type="search" id="q" placeholder="關鍵字，例如 毒品"></label>
+    <label for="fTarget">被攻擊方 <select id="fTarget"><option value="">全部</option><option>蔣萬安</option><option>沈伯洋</option><option>不明</option></select></label>
+    <label for="fKind">類型 <select id="fKind"><option value="">全部</option><option>攻擊</option><option>澄清回應</option><option>一般報導</option></select></label>
+    <label for="fLayer">來源類型 <select id="fLayer"><option value="">全部</option></select></label>
+    <label for="fTopic">議題 <select id="fTopic"><option value="">全部</option></select></label>
+    <label for="fDays">期間 <select id="fDays"><option value="7">近 7 天</option><option value="30">近 30 天</option><option value="" selected>2026 全年</option></select></label>
+    <span class="count" id="feedCount"></span>
+  </div>
+  <div class="feed" id="feed"></div>
+  <button class="more" id="more" hidden>顯示更多</button>
+</section>
+
+<section class="panel" id="p-curated" hidden>
+  <p class="note">以下為人工逐則檢視的攻擊紀錄，查核狀態依事實查核機構、官方文件或原始影音判定。自動抓取的報導不會自動加入這裡。</p>
+  <div class="filters">
+    <label for="cTarget">被攻擊方 <select id="cTarget"><option value="">全部</option><option>蔣萬安</option><option>沈伯洋</option></select></label>
+    <label for="cLayer">來源類型 <select id="cLayer"><option value="">全部</option></select></label>
+    <label for="cStatus">查核狀態 <select id="cStatus"><option value="">全部</option></select></label>
+    <span class="count" id="curCount"></span>
+  </div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>日期</th><th>被攻擊方</th><th>發動者</th><th>來源類型</th><th>內容</th><th>查核狀態</th><th>來源</th></tr></thead>
+    <tbody id="curBody"></tbody>
+  </table></div>
+</section>
+
+<section class="panel" id="p-fc" hidden>
+  <h3>學歷、經歷、家世與公開發言</h3>
+  <div class="filters">
+    <label for="gCand">候選人 <select id="gCand"><option value="">全部</option><option>蔣萬安</option><option>沈伯洋</option></select></label>
+    <label for="gCat">類別 <select id="gCat"><option value="">全部</option></select></label>
+    <span class="count" id="fcCount"></span>
+  </div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>候選人</th><th>類別</th><th>說法</th><th>結論</th><th>依據</th><th>來源</th></tr></thead>
+    <tbody id="fcBody"></tbody>
+  </table></div>
+  <h3>查核機構最新文章</h3>
+  <p class="note">自動收錄台灣事實查核中心、MyGoPen 與 Cofacts 中提到兩位候選人的文章，結論沿用各機構的標示。</p>
+  <div class="feed" id="fcFeed"></div>
+</section>
+
+<section class="panel" id="p-poll" hidden>
+  <div class="legend"><span><i style="--c:var(--chiang)"></i>蔣萬安</span><span><i style="--c:var(--shen)"></i>沈伯洋</span><span>斜紋＝非隨機抽樣</span></div>
+  <div class="poll" id="poll"></div>
+  <p class="note">各機構抽樣與加權方式不同，比較同一機構前後兩次的變化較可靠。民調為人工收錄，最新民調新聞可在「即時新聞」以議題「民調」篩選。</p>
+</section>
+
+<section class="panel" id="p-method" hidden>
+  <div class="box method">
+    <h4>資料來源</h4>
+    <div id="health"></div>
+    <ul>
+      <li>Google 新聞搜尋（彙整各家媒體）、台灣事實查核中心、MyGoPen、Cofacts、PTT 八卦板與政黑板。</li>
+      <li>GitHub Actions 每 30 分鐘抓取一次；首次部署時以每週區間回補 2026/1/1 以來的新聞。</li>
+    </ul>
+  </div>
+  <div class="box method">
+    <h4>自動分類方式</h4>
+    <ul>
+      <li>找出標題中的攻擊用字（批、轟、酸、抹黑、造謠等），依候選人名字出現在用字前後判斷被攻擊方；「遭、被、挨」視為被動句。</li>
+      <li>發動陣營依攻擊用字前出現的人名、政黨或「國台辦」等詞判定。</li>
+      <li>若設定 Claude API 金鑰，會再以模型重新標註，標示為「模型分類」。</li>
+      <li>只看標題，不判斷內容真假；真假查核請看「人工審核攻防」與「個資查核」。</li>
+    </ul>
+  </div>
+  <div class="box method">
+    <h4>限制</h4>
+    <ul>
+      <li>Google 新聞每次查詢最多約 100 則，回補期間的覆蓋率不是 100%。</li>
+      <li>網路節目（YouTube、Podcast）與 Threads、Dcard 沒有穩定的公開資料源，只收錄被新聞報導或查核機構記錄的部分。</li>
+      <li>規則分類會誤判反諷、雙向互批或多人新聞，數量請當作趨勢參考。</li>
+    </ul>
+  </div>
+</section>
+
+<footer>整理自公開報導與事實查核機構，不代表任何立場。原始碼與資料：<a href="https://github.com/charleslin2003-prog/taipei-2026-election-monitor">GitHub</a></footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
