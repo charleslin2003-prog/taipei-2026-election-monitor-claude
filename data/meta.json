@@ -1,8 +1,8 @@
 {
   "updated_at": "2026-10-25T19:40:31+00:00",
-  "mode": "backfill",
+  "mode": "reclassified",
   "total": 7898,
-  "added": 7898,
+  "added": 0,
   "sources": {
     "Google 新聞": {
       "ok": true,

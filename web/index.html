@@ -59,14 +59,14 @@
     <div class="box"><h4>攻擊議題</h4><div id="topics"></div></div>
     <div class="box"><h4>刊登最多攻擊類報導的媒體</h4><div id="outlets"></div></div>
   </div>
-  <p class="note">以上數字來自自動分類，只依標題字詞判斷，會有誤判。媒體刊登量會受各家立場與選題影響，數量差異不代表攻擊強度。</p>
+  <p class="note">以上數字來自自動分類，只依標題字詞判斷，規則分類的抽查準確率約 6 成（見「方法」）。媒體刊登量會受各家立場與選題影響，數量差異不代表攻擊強度。</p>
 </section>
 
 <section class="panel" id="p-feed" hidden>
   <div class="filters">
     <label for="q">搜尋 <input type="search" id="q" placeholder="關鍵字，例如 毒品"></label>
     <label for="fTarget">被攻擊方 <select id="fTarget"><option value="">全部</option><option>蔣萬安</option><option>沈伯洋</option><option>不明</option></select></label>
-    <label for="fKind">類型 <select id="fKind"><option value="">全部</option><option>攻擊</option><option>澄清回應</option><option>一般報導</option></select></label>
+    <label for="fKind">類型 <select id="fKind"><option value="">全部</option><option>攻擊</option><option>澄清回應</option><option>其他批評</option><option>一般報導</option></select></label>
     <label for="fLayer">來源類型 <select id="fLayer"><option value="">全部</option></select></label>
     <label for="fTopic">議題 <select id="fTopic"><option value="">全部</option></select></label>
     <label for="fDays">期間 <select id="fDays"><option value="7">近 7 天</option><option value="30">近 30 天</option><option value="" selected>2026 全年</option></select></label>
@@ -125,6 +125,7 @@
     <h4>自動分類方式</h4>
     <ul>
       <li>找出標題中的攻擊用字（批、轟、酸、抹黑、造謠等），依候選人名字出現在用字前後判斷被攻擊方；「遭、被、挨」視為被動句。</li>
+      <li>候選人批評的對象不是對手（例如業者、中國、選民）時歸為「其他批評」，不計入攻擊統計；批評對手政黨（民進黨、國民黨、市府）時才算攻擊對手，信心標為「低」。</li>
       <li>發動陣營依攻擊用字前出現的人名、政黨或「國台辦」等詞判定。</li>
       <li>若設定 Claude API 金鑰，會再以模型重新標註，標示為「模型分類」。</li>
       <li>只看標題，不判斷內容真假；真假查核請看「人工審核攻防」與「個資查核」。</li>
@@ -135,7 +136,7 @@
     <ul>
       <li>Google 新聞每次查詢最多約 100 則，回補期間的覆蓋率不是 100%。</li>
       <li>網路節目（YouTube、Podcast）與 Threads、Dcard 沒有穩定的公開資料源，只收錄被新聞報導或查核機構記錄的部分。</li>
-      <li>規則分類會誤判反諷、雙向互批或多人新聞，數量請當作趨勢參考。</li>
+      <li>規則分類會誤判反諷、雙向互批或多人新聞。2026/10/26 人工抽查 25 則攻擊類報導，被攻擊方判斷正確約 6 成，數量請當作趨勢參考。啟用模型分類後可明顯改善。</li>
     </ul>
   </div>
 </section>

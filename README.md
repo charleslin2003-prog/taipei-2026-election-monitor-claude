@@ -42,7 +42,7 @@ python -m http.server -d . 8000  # 再開 http://localhost:8000/web/ （需把 d
 
 1. **啟用 Pages**：Settings → Pages → Source 選「GitHub Actions」。
 2. **回補歷史資料**：Actions → Update data and deploy → Run workflow，勾選「回補」。
-3. **（選用）模型分類**：Settings → Secrets and variables → Actions，新增 `ANTHROPIC_API_KEY`。每次執行最多重新標註 120 則，可用 `CLAUDE_MODEL` 環境變數換模型。
+3. **（選用）模型分類**：Settings → Secrets and variables → Actions，新增 `ANTHROPIC_API_KEY`。每次執行最多重新標註 300 則（`LLM_PER_RUN` 可調），規則判為攻擊或澄清的標題優先，可用 `CLAUDE_MODEL` 環境變數換模型。
 
 ## 調整分類規則
 
@@ -54,7 +54,7 @@ python -m http.server -d . 8000  # 再開 http://localhost:8000/web/ （需把 d
 
 ## 限制
 
-- 自動分類只看標題字詞，會誤判反諷、雙向互批與多人新聞，數量請當作趨勢參考。
+- 自動分類只看標題字詞，會誤判反諷、雙向互批與多人新聞。人工抽查 25 則攻擊類報導，規則分類判斷被攻擊方正確約 6 成；建議設定 `ANTHROPIC_API_KEY` 啟用模型分類。
 - Google 新聞每次查詢最多約 100 則，回補覆蓋率不是 100%。
 - YouTube、Podcast、Threads、Dcard 沒有穩定的公開資料源，只收錄被新聞或查核機構記錄的部分。
 - 媒體刊登量受各家立場與選題影響，數量差異不代表攻擊強度。

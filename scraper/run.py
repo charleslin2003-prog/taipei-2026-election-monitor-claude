@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 NEWS = DATA / "news.json"
 META = DATA / "meta.json"
-LLM_PER_RUN = 120
+LLM_PER_RUN = int(__import__("os").environ.get("LLM_PER_RUN", "300"))
 
 
 def item_id(title: str, source: str) -> str:
@@ -93,7 +93,7 @@ def to_record(r: dict) -> dict | None:
     pub = r.get("published")
     if pub and pub[:10] < C.START_DATE:
         return None
-    title = K.clean_title(r["title"], r.get("source", ""))
+    title = K.display_title(r["title"], r.get("source", ""))
     rec = {
         "id": item_id(r["title"], r.get("source", "")),
         "title": title,
@@ -134,7 +134,10 @@ def llm_pass(rows: list[dict]) -> dict:
     status = {"enabled": llm.enabled(), "labelled": 0, "errors": []}
     if not status["enabled"]:
         return status
-    todo = [r for r in rows if r.get("cls", {}).get("by") != "llm"][:LLM_PER_RUN]
+    # Headlines the rules flagged as attacks or rebuttals go first, newest first.
+    todo = [r for r in rows if r.get("cls", {}).get("by") != "llm"]
+    todo.sort(key=lambda r: (r["cls"].get("kind") == "一般報導", r.get("published") is None))
+    todo = todo[:LLM_PER_RUN]
     for i in range(0, len(todo), 30):
         chunk = todo[i:i + 30]
         try:
@@ -162,6 +165,9 @@ def main(argv=None) -> int:
     if args.offline:
         raw, health = [], {}
         for e in existing:
+            e["title"] = K.display_title(e["title"], e["source"])
+            if e.get("cls", {}).get("by") == "llm":
+                continue
             e["cls"] = K.classify(e["title"], e.get("summary", ""), e["source"], e["url"], e.get("origin", ""))
         rows, added = sorted(existing, key=lambda e: e.get("published") or "", reverse=True), 0
     else:

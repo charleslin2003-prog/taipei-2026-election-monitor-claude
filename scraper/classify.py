@@ -33,6 +33,26 @@ def clean_title(title: str, source: str = "") -> str:
     return re.sub(r"\s+", " ", title).strip()
 
 
+def display_title(title: str, source: str = "") -> str:
+    """clean_title plus removal of section labels such as "| 政治" or "- 生活"."""
+    t = clean_title(title, source)
+    for _ in range(2):
+        t = re.sub(r"\s*[|｜\-－]\s*" + C.TITLE_SUFFIXES + r"\s*$", "", t).strip()
+    return t
+
+
+def _speaker_camp(text: str, exclude: str | None = None) -> str | None:
+    """Camp of a speaker introduced with a colon, e.g. "民眾黨：…".
+
+    The target's own camp is skipped: "…開轟蔣萬安：…" names the target, not the speaker.
+    """
+    for m in re.finditer(r"[：:]", text):
+        camp = _camp_in(text[max(0, m.start() - 8):m.start()])
+        if camp and camp != exclude:
+            return camp
+    return None
+
+
 def mentions(text: str) -> dict[str, list[int]]:
     """Positions where each candidate (or their side) appears."""
     text = _mask(text, C.FALSE_POSITIVES)
@@ -156,11 +176,21 @@ def classify(title: str, summary: str = "", source: str = "", url: str = "", ori
             pm = max(masked.rfind(mk, 0, va) for mk in C.PASSIVE_MARKERS)
             attacker = _camp_in(masked[pm + 1:va]) if pm >= 0 else None
         else:
+            attacker = _camp_in(masked[:va])
             if after:
                 target, conf = min(after, key=after.get), "中"
             elif before:
-                target, conf = _other(max(before, key=before.get)), "低"
-            attacker = _camp_in(masked[:va])
+                other = _other(max(before, key=before.get))
+                if other in before:
+                    # "沈伯洋談X 蔣萬安競辦嗆：…" — rival named earlier as the topic
+                    target, conf = other, "中"
+                elif any(w in masked[va:] for w in C.IMPLIED_TARGET[other]):
+                    target, conf = other, "低"
+                else:
+                    result.update(kind="其他批評", confidence="中")
+                    return result
+        if not attacker:
+            attacker = _speaker_camp(masked, exclude=C.CANDIDATE_CAMP.get(target))
         if target and attacker == C.CANDIDATE_CAMP.get(target) and not passive:
             # "沈伯洋陣營內部" style headlines are rare; treat as unclear.
             conf = "低"

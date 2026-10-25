@@ -159,6 +159,7 @@ function newsCard(n) {
   const tags = [];
   if (c.kind === "攻擊") tags.push(`${tgt(c.target || "不明")}<span>被攻擊 · 發動：${esc(c.attacker || "不明")}</span>`);
   else if (c.kind === "澄清回應") tags.push(`${tgt(c.target || "不明")}<span>澄清回應</span>`);
+  else if (c.kind === "其他批評") tags.push(`<span class="tag">其他批評</span>`);
   else tags.push(`<span class="tag">一般報導</span>`);
   if (n.verdict) tags.push(pill(n.verdict));
   (c.topics || []).forEach((t) => tags.push(`<span class="tag">${esc(t)}</span>`));

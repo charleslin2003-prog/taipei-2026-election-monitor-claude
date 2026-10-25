@@ -27,7 +27,7 @@ FALSE_POSITIVES = ["萬安演習"]
 ATTACK_VERBS = [
     "抹黑", "造謠", "打臉", "砲轟", "炮轟", "痛批", "狠批", "怒批", "反批", "開砲", "開嗆",
     "嗆", "轟", "酸", "批", "諷", "譏", "嘲", "質疑", "指控", "踢爆", "爆料", "出征",
-    "圍剿", "撻伐", "說謊", "謊言", "翻車", "要求道歉", "抓包", "打假", "戳破", "點名",
+    "圍剿", "撻伐", "說謊", "謊言", "翻車", "要求道歉", "抓包", "打假", "戳破",
 ]
 PASSIVE_MARKERS = ["遭", "被", "挨"]
 DEFENSE_VERBS = ["駁斥", "澄清", "闢謠", "回應", "回擊", "反擊", "喊冤", "提告", "嚴正"]
@@ -46,8 +46,19 @@ CAMPS = {
     "白營": ["民眾黨", "黃國昌", "黃珊珊", "柯文哲", "陳智菡"],
     "境外官方": ["國台辦", "中共", "陸方", "中國官方", "央視", "新華社", "環球時報", "公安"],
     "名嘴與節目": ["名嘴", "主持人", "政論", "戰情室", "節目"],
-    "網友與粉專": ["網友", "網紅", "粉專", "鄉民", "Threads", "脆友", "PTT"],
+    "網友與粉專": ["網友", "網紅", "粉專", "鄉民", "Threads", "脆友", "PTT", "側翼"],
 }
+# When a candidate criticises someone who is not named as the other candidate,
+# the headline only counts as an attack on that candidate if these party or
+# side words appear after the attack verb. Otherwise it is "其他批評".
+IMPLIED_TARGET = {
+    "蔣萬安": ["國民黨", "藍營", "藍委", "藍白", "北市府", "市府", "市政府", "蔣市府"],
+    "沈伯洋": ["民進黨", "綠營", "綠委", "沈陣營", "沈競辦"],
+}
+
+# Section labels Google News appends to some titles.
+TITLE_SUFFIXES = r"(政治|生活|社會|即時|要聞|焦點|地方|國際|財經|2026九合一選舉|九合一選舉|選舉|新聞)"
+
 # A candidate (or their side) speaking first counts as that candidate's camp.
 CANDIDATE_CAMP = {"蔣萬安": "藍營", "沈伯洋": "綠營"}
 
