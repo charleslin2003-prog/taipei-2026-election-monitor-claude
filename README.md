@@ -1,8 +1,8 @@
-# 台北市長選戰查核台
+# 台北市長選戰查核台（Claude 版）
 
 2026 台北市長選舉（蔣萬安 vs 沈伯洋）的新聞攻防與事實查核平台。GitHub Actions 每 30 分鐘抓取新聞、論壇與查核機構文章，依標題自動分類「誰在攻擊誰」，再部署到 GitHub Pages。
 
-網站：https://charleslin2003-prog.github.io/taipei-2026-election-monitor/
+網站：https://charleslin2003-prog.github.io/taipei-2026-election-monitor-claude/
 
 ## 功能
 

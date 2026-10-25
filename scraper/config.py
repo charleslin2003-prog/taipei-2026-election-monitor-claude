@@ -97,4 +97,4 @@ RSS_FEEDS = {
 
 COFACTS_GRAPHQL = "https://api.cofacts.tw/graphql"
 
-USER_AGENT = "taipei-2026-election-monitor/1.0 (+https://github.com/charleslin2003-prog/taipei-2026-election-monitor)"
+USER_AGENT = "taipei-2026-election-monitor-claude/1.0 (+https://github.com/charleslin2003-prog/taipei-2026-election-monitor-claude)"
