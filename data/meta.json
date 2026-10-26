@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-26T20:28:38+00:00",
+  "updated_at": "2026-10-26T20:33:12+00:00",
   "mode": "incremental",
-  "total": 9042,
-  "added": 5,
+  "total": 9044,
+  "added": 2,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,9 +10,9 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-26T20:28:38+00:00",
-      "last_success_at": "2026-10-26T20:28:38+00:00",
-      "kept": 289
+      "last_attempt_at": "2026-10-26T20:33:12+00:00",
+      "last_success_at": "2026-10-26T20:33:12+00:00",
+      "kept": 288
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-26T20:28:38+00:00",
-      "last_success_at": "2026-10-26T20:28:38+00:00",
+      "last_attempt_at": "2026-10-26T20:33:12+00:00",
+      "last_success_at": "2026-10-26T20:33:12+00:00",
       "kept": 0
     },
     "MyGoPen": {
@@ -30,20 +30,18 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-26T20:28:38+00:00",
-      "last_success_at": "2026-10-26T20:28:38+00:00",
+      "last_attempt_at": "2026-10-26T20:33:12+00:00",
+      "last_success_at": "2026-10-26T20:33:12+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
-      "ok": false,
-      "fetched": 0,
-      "errors": [
-        "HTTPError: 522 Server Error: <none> for url: https://www.ptt.cc/atom/Gossiping.xml"
-      ],
+      "ok": true,
+      "fetched": 20,
+      "errors": [],
       "calls": 1,
-      "failed_calls": 1,
-      "last_attempt_at": "2026-10-26T20:28:38+00:00",
-      "last_success_at": "2026-10-26T19:22:01+00:00",
+      "failed_calls": 0,
+      "last_attempt_at": "2026-10-26T20:33:12+00:00",
+      "last_success_at": "2026-10-26T20:33:12+00:00",
       "kept": 0
     },
     "PTT 政黑板": {
@@ -52,8 +50,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-26T20:28:38+00:00",
-      "last_success_at": "2026-10-26T20:28:38+00:00",
+      "last_attempt_at": "2026-10-26T20:33:12+00:00",
+      "last_success_at": "2026-10-26T20:33:12+00:00",
       "kept": 10
     },
     "Cofacts": {
@@ -62,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-26T20:28:38+00:00",
-      "last_success_at": "2026-10-26T20:28:38+00:00",
+      "last_attempt_at": "2026-10-26T20:33:12+00:00",
+      "last_success_at": "2026-10-26T20:33:12+00:00",
       "kept": 45
     }
   },
