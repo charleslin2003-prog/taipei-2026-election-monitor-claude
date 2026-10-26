@@ -104,3 +104,28 @@ button.more{font:inherit;font-weight:700;padding:8px 14px;background:var(--surfa
 .bar.dim span.fill{background:repeating-linear-gradient(45deg,var(--c) 0 4px,transparent 4px 7px)}
 .method ul{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px;max-width:78ch}
 footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+/* v2: countdown, principles, hot topics, extra filters, headline history */
+.principles{margin:0;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--fg)}
+.countdown{display:flex;gap:10px;flex-wrap:wrap}
+.cd{display:inline-flex;gap:10px;align-items:baseline;padding:6px 12px;border:1px solid var(--fg);background:var(--surface);text-decoration:none;font-size:13px}
+.cd b{font-size:18px}
+.cd span:nth-child(2){color:var(--muted)}
+.warnline{color:var(--warn);font-weight:500}
+button.tile{font:inherit;color:inherit;text-align:left;cursor:pointer}
+button.tile:hover{border-color:var(--fg)}
+.hbar.hot{grid-template-columns:7.5em 1fr 3em 3.2em;background:none;border:0;padding:2px 0;font:inherit;font-size:13px;color:inherit;cursor:pointer;text-align:left;width:100%}
+.hbar.hot:hover span:first-child{text-decoration:underline}
+.delta{font-family:var(--f-mono);font-size:12px;text-align:right}
+.delta.up{color:var(--fg)} .delta.down{color:var(--muted)}
+input[type=date]{font:inherit;font-size:14px;padding:4px 6px;background:var(--surface);color:var(--fg);border:1px solid var(--line);max-width:100%}
+.filters label.check{color:var(--fg);cursor:pointer}
+.filters label{white-space:nowrap;min-width:0}
+#fSource{max-width:14em}
+button.ghost{font:inherit;font-size:13px;font-weight:700;padding:5px 12px;background:var(--surface);color:var(--fg);border:1px solid var(--line);cursor:pointer}
+button.ghost:disabled{opacity:.45;cursor:not-allowed}
+.filter-error{margin:0;font-size:13px;color:var(--bad)}
+.hist{font-size:13px}
+.hist summary{cursor:pointer;color:var(--muted);font-size:12px;list-style-position:inside}
+.hist ol{margin:6px 0 0;padding-left:1.4em;display:grid;gap:4px}
+.hist s{color:var(--muted)}
+.ledger td.resp{font-size:13px;color:var(--muted);min-width:14em}

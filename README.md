@@ -6,9 +6,10 @@
 
 ## 功能
 
-- **總覽**：每週攻擊類報導趨勢、發動陣營 × 被攻擊方矩陣、來源類型、議題、刊登媒體排行
-- **即時新聞**：2026/1/1 以來的相關報導，可依被攻擊方、類型、來源類型、議題、期間與關鍵字篩選
-- **人工審核攻防**：逐則檢視過的攻擊紀錄與查核狀態
+- **總覽**：辯論與投票倒數、每週攻擊類報導趨勢、近 7 天熱門議題（與前 7 天比較）、發動陣營 × 被攻擊方矩陣、來源類型、議題、刊登媒體排行
+- **即時新聞**：2026/1/1 以來的相關報導，可依被攻擊方、類型、來源類型、議題、媒體、標題提及、日期區間與關鍵字篩選，並可匯出 CSV
+- **標題修改追蹤**：同一則新聞連結被媒體改標題時，保留舊標題與發現時間
+- **人工審核攻防**：逐則檢視過的攻擊紀錄、當事人回應與查核狀態
 - **個資查核**：學歷、經歷、家世、公開發言的查核結論與依據，以及查核機構的最新文章
 - **民調**：各機構民調對照
 - **方法**：各資料源的抓取狀態與錯誤訊息
@@ -16,7 +17,7 @@
 ## 架構
 
 ```
-GitHub Actions（每 10 分鐘排程，或外部 cron 觸發）
+GitHub Actions：每次更新結束 → heartbeat.yml 等 20 分鐘 → 觸發下一次更新（cron 只當備援）
   └─ scraper/run.py
        ├─ sources.py   Google 新聞 RSS、台灣事實查核中心、MyGoPen、PTT、Cofacts
        ├─ classify.py  規則分類：攻擊／澄清回應／一般報導、被攻擊方、發動陣營、議題、來源類型
@@ -31,7 +32,7 @@ GitHub Actions（每 10 分鐘排程，或外部 cron 觸發）
 
 ```bash
 pip install -r requirements.txt
-python -m pytest -q              # 分類規則測試
+python -m pytest -q              # 分類規則、資料合併與人工資料格式測試
 python -m scraper.run            # 抓取近兩天
 python -m scraper.run --backfill # 回補 2026/1/1 以來（每週一個區間）
 python -m scraper.run --offline  # 不連網，只用新規則重新分類現有資料
@@ -44,9 +45,15 @@ python -m http.server -d . 8000  # 再開 http://localhost:8000/web/ （需把 d
 2. **回補歷史資料**：Actions → Update data and deploy → Run workflow，勾選「回補」。
 3. **（選用）模型分類**：Settings → Secrets and variables → Actions，新增 `ANTHROPIC_API_KEY`。每次執行最多重新標註 300 則（`LLM_PER_RUN` 可調），規則判為攻擊或澄清的標題優先，可用 `CLAUDE_MODEL` 環境變數換模型。
 
-## 準時更新（外部觸發）
+## 更新頻率
 
-GitHub 的 `schedule` 是盡量執行，新 repo 或尖峰時段常被跳過。要保證準時，改由外部 cron 呼叫 `workflow_dispatch`：
+GitHub 的 `schedule` 是盡量執行，實測新 repo 常連續數小時不觸發。因此每次更新結束時會觸發 `heartbeat.yml`，等 20 分鐘後再啟動下一次更新，形成一條自我延續的鏈；`update.yml` 的 cron 只在鏈中斷時把它接回來。若更新中斷超過 2 天，下一次會自動補抓中斷期間的新聞。鏈會在 2026/11/30 後自動停止。
+
+公開 repo 的 Actions 分鐘數免費，但等待期間會佔用一台 runner。若想改用外部觸發（不佔 runner），可停用 heartbeat 並改用下方方式。
+
+### 外部觸發（選用）
+
+由外部 cron 呼叫 `workflow_dispatch`：
 
 1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token
    - Repository access：Only select repositories → 本 repo

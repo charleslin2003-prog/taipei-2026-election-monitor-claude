@@ -10,8 +10,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
+import os
 import re
 import sys
+import time
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -24,12 +27,41 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 NEWS = DATA / "news.json"
 META = DATA / "meta.json"
-LLM_PER_RUN = int(__import__("os").environ.get("LLM_PER_RUN", "300"))
+LLM_PER_RUN = int(os.environ.get("LLM_PER_RUN", "300"))
+INCREMENTAL_DAYS = 2      # normal look-back window for each run
+RETRIES = 2               # extra attempts per request after a network error
 
 
 def item_id(title: str, source: str) -> str:
     norm = re.sub(r"[\s「」『』\"'“”‘’，,。：:！!？?、]", "", K.clean_title(title, source))
     return hashlib.sha1(norm.encode()).hexdigest()[:12]
+
+
+def norm_title(title: str) -> str:
+    """Comparison key for headline edits: ignore spacing and punctuation."""
+    return re.sub(r"[\W_]", "", title or "")
+
+
+def parse_iso(value: str | None) -> datetime | None:
+    try:
+        return datetime.fromisoformat(value) if value else None
+    except ValueError:
+        return None
+
+
+def catch_up_window(last_success: str | None, now: datetime) -> tuple[str, str | None]:
+    """How far back this run must look so a gap in runs does not lose news.
+
+    Returns ("when", "<n>d") for gaps up to a week, or ("since", "<date>") when
+    the last success is older and week-by-week windows are needed.
+    """
+    last = parse_iso(last_success)
+    if not last:
+        return "when", f"{INCREMENTAL_DAYS}d"
+    days = max(INCREMENTAL_DAYS, math.ceil((now - last).total_seconds() / 86400) + 1)
+    if days <= 7:
+        return "when", f"{days}d"
+    return "since", (last.date() - timedelta(days=1)).isoformat()
 
 
 def load(path: Path, default):
@@ -55,36 +87,62 @@ def weekly_windows(start: str, end: date):
         d = nxt
 
 
-def gather(backfill: bool) -> tuple[list[dict], dict]:
+def gather(backfill: bool, previous: dict | None = None, now: datetime | None = None) -> tuple[list[dict], dict, dict]:
+    """Fetch every source. Returns (raw items, per-source health, window info)."""
+    previous = previous or {}
+    now = now or datetime.now(timezone.utc)
+    stamp = now.replace(microsecond=0).isoformat()
     raw, health = [], {}
 
     def run(name, fn, *args):
-        h = health.setdefault(name, {"ok": True, "fetched": 0, "errors": []})
-        try:
-            got = fn(*args)
-            h["fetched"] += len(got)
-            raw.extend(got)
-        except Exception as e:  # noqa: BLE001 - record and continue
-            h["ok"] = False
-            h["errors"].append(f"{type(e).__name__}: {e}"[:200])
+        h = health.setdefault(name, {"ok": True, "fetched": 0, "errors": [], "calls": 0, "failed_calls": 0})
+        h["calls"] += 1
+        for attempt in range(RETRIES + 1):
+            try:
+                got = fn(*args)
+                h["fetched"] += len(got)
+                raw.extend(got)
+                return
+            except Exception as e:  # noqa: BLE001 - record and continue
+                err = f"{type(e).__name__}: {e}"[:200]
+                if attempt < RETRIES:
+                    time.sleep(2 ** attempt)
+        h["failed_calls"] += 1
+        if err not in h["errors"]:
+            h["errors"].append(err)
 
-    today = datetime.now(timezone.utc).date()
+    today = now.date()
+    if backfill:
+        window = {"mode": "backfill", "since": C.START_DATE}
+    else:
+        last_google = (previous.get("Google 新聞") or {}).get("last_success_at")
+        kind, value = catch_up_window(last_google, now)
+        window = {"mode": "catch_up" if kind == "since" or value != f"{INCREMENTAL_DAYS}d" else "incremental",
+                  kind: value}
     for q in C.GOOGLE_NEWS_QUERIES:
-        if backfill:
-            for a, b in weekly_windows(C.START_DATE, today):
+        if "since" in window:
+            for a, b in weekly_windows(window["since"], today):
                 run("Google 新聞", S.google_news, f"{q} after:{a} before:{b}")
                 S.polite_sleep()
         else:
-            run("Google 新聞", S.google_news, f"{q} when:2d")
+            run("Google 新聞", S.google_news, f"{q} when:{window['when']}")
             S.polite_sleep()
     for name, url in C.RSS_FEEDS.items():
         run(name, S.rss, name, url)
     for cand in C.CANDIDATES:
         run("Cofacts", S.cofacts, cand)
-    for h in health.values():
-        if h["ok"] is False and h["fetched"]:
+
+    for name, h in health.items():
+        prev = previous.get(name) or {}
+        if h["failed_calls"] == 0:
+            h["ok"] = True
+        elif h["failed_calls"] < h["calls"]:
             h["ok"] = "partial"
-    return raw, health
+        else:
+            h["ok"] = False
+        h["last_attempt_at"] = stamp
+        h["last_success_at"] = stamp if h["ok"] is not False else prev.get("last_success_at")
+    return raw, health, window
 
 
 def to_record(r: dict) -> dict | None:
@@ -101,7 +159,8 @@ def to_record(r: dict) -> dict | None:
         "source": r.get("source", ""),
         "origin": r.get("origin", ""),
         "published": pub,
-        "summary": r.get("summary", "")[:240],
+        # Google News descriptions only repeat the headline, so skip them.
+        "summary": "" if r.get("origin") == "Google 新聞" else r.get("summary", "")[:240],
     }
     rec["cls"] = K.classify(title, r.get("summary", ""), rec["source"], rec["url"], rec["origin"])
     if rec["cls"]["layer"] == "查核機構":
@@ -109,14 +168,61 @@ def to_record(r: dict) -> dict | None:
     return rec
 
 
-def merge(existing: list[dict], fresh: list[dict], now: str) -> tuple[list[dict], int]:
+def _record_title_change(old: dict, new_title: str, now: str) -> bool:
+    if norm_title(new_title) == norm_title(old["title"]):
+        return False
+    hist = old.setdefault("title_history", [])
+    hist.append({"title": old["title"], "replaced_at": now})
+    del hist[:-5]
+    old["title"] = new_title
+    return True
+
+
+def fold_duplicate_urls(rows: list[dict]) -> list[dict]:
+    """Records saved before headline tracking may share a URL; merge them.
+
+    The earliest-seen record keeps its id; later titles become the current
+    title and earlier ones go into title_history.
+    """
+    groups: dict[str, list[dict]] = {}
+    out = []
+    for r in rows:
+        if r.get("url"):
+            groups.setdefault(r["url"], []).append(r)
+        else:
+            out.append(r)
+    for recs in groups.values():
+        recs.sort(key=lambda r: r.get("first_seen") or "")
+        keep = recs[0]
+        for later in recs[1:]:
+            _record_title_change(keep, later["title"], later.get("first_seen") or "")
+            if later.get("cls", {}).get("by") == "llm" or keep.get("cls", {}).get("by") != "llm":
+                keep["cls"] = later["cls"]
+        out.append(keep)
+    return out
+
+
+def merge(existing: list[dict], fresh: list[dict], now: str) -> tuple[list[dict], int, int]:
+    """Returns (rows, added, headline_edits)."""
+    existing = fold_duplicate_urls(existing)
     by_id = {e["id"]: e for e in existing}
-    added = 0
+    by_url = {e["url"]: e for e in existing if e.get("url")}
+    added = edits = 0
     for rec in fresh:
         old = by_id.get(rec["id"])
+        if old is None and rec.get("url") in by_url:
+            # Same article link, new headline: the outlet edited its title.
+            old = by_url[rec["url"]]
+            if _record_title_change(old, rec["title"], now):
+                edits += 1
+                old["cls"] = rec["cls"] if old.get("cls", {}).get("by") != "llm" else old["cls"]
+            by_id[rec["id"]] = old
+            continue
         if old is None:
             rec["first_seen"] = now
             by_id[rec["id"]] = rec
+            if rec.get("url"):
+                by_url[rec["url"]] = rec
             added += 1
         else:
             # Keep the earliest timestamp and any LLM label already earned.
@@ -126,8 +232,9 @@ def merge(existing: list[dict], fresh: list[dict], now: str) -> tuple[list[dict]
                 old["cls"] = rec["cls"]
             if rec.get("verdict"):
                 old["verdict"] = rec["verdict"]
-    rows = sorted(by_id.values(), key=lambda e: e.get("published") or "", reverse=True)
-    return rows, added
+    unique = {id(r): r for r in by_id.values()}.values()
+    rows = sorted(unique, key=lambda e: e.get("published") or "", reverse=True)
+    return rows, added, edits
 
 
 def llm_pass(rows: list[dict]) -> dict:
@@ -159,38 +266,53 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     DATA.mkdir(exist_ok=True)
-    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    now_dt = datetime.now(timezone.utc).replace(microsecond=0)
+    now = now_dt.isoformat()
     existing = load(NEWS, [])
+    meta = load(META, {})
+    window, edits = {}, 0
 
     if args.offline:
         raw, health = [], {}
+        existing = fold_duplicate_urls(existing)
         for e in existing:
+            if e.get("origin") == "Google 新聞":
+                e["summary"] = ""
             e["title"] = K.display_title(e["title"], e["source"])
             if e.get("cls", {}).get("by") == "llm":
                 continue
             e["cls"] = K.classify(e["title"], e.get("summary", ""), e["source"], e["url"], e.get("origin", ""))
         rows, added = sorted(existing, key=lambda e: e.get("published") or "", reverse=True), 0
     else:
-        raw, health = gather(args.backfill)
+        raw, health, window = gather(args.backfill, meta.get("sources", {}), now_dt)
         fresh = [rec for rec in map(to_record, raw) if rec]
         for name, h in health.items():
             h["kept"] = len({f["id"] for f in fresh if f["origin"] == name})
-        rows, added = merge(existing, fresh, now)
+        rows, added, edits = merge(existing, fresh, now)
 
     llm_status = llm_pass(rows)
     write_lines(NEWS, rows)
-    meta = load(META, {})
+    if args.offline:
+        # Reclassifying is not a fetch: keep the fetch time and window shown on the site.
+        meta.update({"reclassified_at": now, "total": len(rows),
+                     "headline_edited_total": sum(1 for r in rows if r.get("title_history")), "llm": llm_status})
+        META.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"reclassified total={len(rows)}")
+        return 0
     meta.update({
         "updated_at": now,
-        "mode": "offline" if args.offline else ("backfill" if args.backfill else "incremental"),
+        "mode": window.get("mode", "incremental"),
+        "window": window,
         "total": len(rows),
         "added": added,
+        "headline_edits": edits,
+        "headline_edited_total": sum(1 for r in rows if r.get("title_history")),
         "sources": health or meta.get("sources", {}),
         "llm": llm_status,
         "start_date": C.START_DATE,
     })
     META.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"total={len(rows)} added={added} sources={ {k: v['ok'] for k, v in health.items()} } llm={llm_status}")
+    print(f"total={len(rows)} added={added} edits={edits} window={window} sources={ {k: v['ok'] for k, v in health.items()} } llm={llm_status}")
     # Fail the job only when every source failed, so the site keeps old data.
     if health and not any(h["ok"] for h in health.values()):
         return 1

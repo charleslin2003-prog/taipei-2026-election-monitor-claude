@@ -50,76 +50,14 @@
  ],
  "attacks": [
   {
-   "date": "2026-01-14",
-   "target": "蔣萬安",
-   "actor": "徐國勇（民進黨秘書長）",
-   "layer": "主流媒體",
-   "claim": "營養午餐免費是選舉手段",
-   "status": "評論",
-   "url": "https://news.tvbs.com.tw/english/3101191"
-  },
-  {
-   "date": "2026-01",
-   "target": "蔣萬安",
-   "actor": "黃偉哲（台南市長）",
-   "layer": "主流媒體",
-   "claim": "營養午餐「炫富」、不排富有政策買票嫌疑",
-   "status": "評論",
-   "url": "https://www.nownews.com/news/6773907"
-  },
-  {
-   "date": "2026-01",
-   "target": "蔣萬安",
-   "actor": "王婉諭（時代力量）",
-   "layer": "主流媒體",
-   "claim": "全額買單是「最廉價的政治買票」",
-   "status": "評論",
-   "url": "https://tw.news.yahoo.com/%E8%94%A3%E8%90%AC%E5%AE%89%E5%A4%A7%E6%92%92%E5%B9%A3-%E5%96%8A%E7%87%9F%E9%A4%8A%E5%8D%88%E9%A4%90%E5%85%8D%E8%B2%BB-%E5%8F%B0%E7%81%A3%E5%89%8D%E9%80%B2%E9%99%A3%E7%B7%9A-%E6%9C%80%E5%BB%89%E5%83%B9%E7%9A%84%E6%94%BF%E6%B2%BB%E8%B2%B7%E7%A5%A8-020917955.html"
-  },
-  {
-   "date": "2026-04-18",
-   "target": "蔣萬安",
-   "actor": "曹興誠",
-   "layer": "主流媒體",
-   "claim": "打賭蔣不敢和沈辯論",
-   "status": "評論",
-   "url": "https://newtalk.tw/news/view/2026-04-18/1030467"
-  },
-  {
-   "date": "2026-04-23",
+   "date": "2025-11 起",
    "target": "沈伯洋",
-   "actor": "賴苡任（藍營議員參選人）",
-   "layer": "主流媒體",
-   "claim": "把整個社會生態學院的領域都說成自己的專業",
-   "status": "誇大爭議",
-   "url": "https://www.ettoday.net/news/20260423/3154521.htm"
-  },
-  {
-   "date": "2026-04-27",
-   "target": "沈伯洋",
-   "actor": "王鴻薇（國民黨立委）",
-   "layer": "主流媒體",
-   "claim": "綠營吹噓沈伯洋，反顯其「草包」",
-   "status": "評論",
-   "url": "https://udn.com/news/story/124652/9466888"
-  },
-  {
-   "date": "2026-05",
-   "target": "沈伯洋",
-   "actor": "藍營人士",
-   "layer": "主流媒體",
-   "claim": "沈自稱遭跟監是說謊、被害妄想",
-   "status": "指控不成立",
-   "url": "https://news.ltn.com.tw/topic/%E5%BE%B5%E4%BF%A1%E7%A4%BE"
-  },
-  {
-   "date": "2026-05",
-   "target": "蔣萬安",
-   "actor": "陳峻涵（台灣國）",
-   "layer": "網路／政論節目",
-   "claim": "以「要求蔣萬安驗 DNA」為唯一政見",
-   "status": "無證據",
-   "url": "https://n.yam.com/Article/20260505691087"
+   "actor": "抖音、Threads 帳號",
+   "layer": "論壇與社群",
+   "claim": "沈家 3 家上市公司被中共懲戒、市值蒸發 47 億",
+   "status": "錯誤",
+   "url": "https://tfc-taiwan.org.tw/fact-check-reports/shen-boyang-family-sanction-fake-news/",
+   "response": "沈：父親公司為兆億；已對散布者提告"
   },
   {
    "date": "2026 年中",
@@ -128,16 +66,98 @@
    "layer": "網路／政論節目",
    "claim": "稱沈在節目說「沒想到內湖房價很高」",
    "status": "曲解／斷章",
-   "url": "https://www.nownews.com/news/6847510"
+   "url": "https://www.nownews.com/news/6847510",
+   "response": "沈競辦公布節目原文，稱從未說過，並提出婚育宅等方案"
   },
   {
-   "date": "2026-07-05",
-   "target": "沈伯洋",
-   "actor": "黃國昌（民眾黨主席）",
+   "date": "2026-01",
+   "target": "蔣萬安",
+   "actor": "黃偉哲（台南市長）",
    "layer": "主流媒體",
-   "claim": "指沈配合媒體抹黑他去香港，要求道歉",
+   "claim": "營養午餐「炫富」、不排富有政策買票嫌疑",
    "status": "評論",
-   "url": "https://newtalk.tw/news/view/2026-07-05/1045311"
+   "url": "https://www.nownews.com/news/6773907",
+   "response": "北市府：政策目的是減輕家長負擔，高雄等地也要推動"
+  },
+  {
+   "date": "2026-01",
+   "target": "蔣萬安",
+   "actor": "王婉諭（時代力量）",
+   "layer": "主流媒體",
+   "claim": "全額買單是「最廉價的政治買票」",
+   "status": "評論",
+   "url": "https://tw.news.yahoo.com/%E8%94%A3%E8%90%AC%E5%AE%89%E5%A4%A7%E6%92%92%E5%B9%A3-%E5%96%8A%E7%87%9F%E9%A4%8A%E5%8D%88%E9%A4%90%E5%85%8D%E8%B2%BB-%E5%8F%B0%E7%81%A3%E5%89%8D%E9%80%B2%E9%99%A3%E7%B7%9A-%E6%9C%80%E5%BB%89%E5%83%B9%E7%9A%84%E6%94%BF%E6%B2%BB%E8%B2%B7%E7%A5%A8-020917955.html",
+   "response": ""
+  },
+  {
+   "date": "2026-01-14",
+   "target": "蔣萬安",
+   "actor": "徐國勇（民進黨秘書長）",
+   "layer": "主流媒體",
+   "claim": "營養午餐免費是選舉手段",
+   "status": "評論",
+   "url": "https://news.tvbs.com.tw/english/3101191",
+   "response": "蔣：「這不是炫富，是我們的責任」"
+  },
+  {
+   "date": "2026-04-18",
+   "target": "蔣萬安",
+   "actor": "曹興誠",
+   "layer": "主流媒體",
+   "claim": "打賭蔣不敢和沈辯論",
+   "status": "評論",
+   "url": "https://newtalk.tw/news/view/2026-04-18/1030467",
+   "response": ""
+  },
+  {
+   "date": "2026-04-23",
+   "target": "沈伯洋",
+   "actor": "賴苡任（藍營議員參選人）",
+   "layer": "主流媒體",
+   "claim": "把整個社會生態學院的領域都說成自己的專業",
+   "status": "誇大爭議",
+   "url": "https://www.ettoday.net/news/20260423/3154521.htm",
+   "response": ""
+  },
+  {
+   "date": "2026-04-27",
+   "target": "沈伯洋",
+   "actor": "王鴻薇（國民黨立委）",
+   "layer": "主流媒體",
+   "claim": "綠營吹噓沈伯洋，反顯其「草包」",
+   "status": "評論",
+   "url": "https://udn.com/news/story/124652/9466888",
+   "response": ""
+  },
+  {
+   "date": "2026-05",
+   "target": "沈伯洋",
+   "actor": "藍營人士",
+   "layer": "主流媒體",
+   "claim": "沈自稱遭跟監是說謊、被害妄想",
+   "status": "指控不成立",
+   "url": "https://news.ltn.com.tw/topic/%E5%BE%B5%E4%BF%A1%E7%A4%BE",
+   "response": "北檢 10/7 起訴受託跟監的徵信業者；楊植斗公開道歉"
+  },
+  {
+   "date": "2026-05",
+   "target": "蔣萬安",
+   "actor": "陳峻涵（台灣國）",
+   "layer": "網路／政論節目",
+   "claim": "以「要求蔣萬安驗 DNA」為唯一政見",
+   "status": "無證據",
+   "url": "https://n.yam.com/Article/20260505691087",
+   "response": ""
+  },
+  {
+   "date": "2026-05-14",
+   "target": "蔣萬安",
+   "actor": "翁達瑞（旅美教授）",
+   "layer": "論壇與社群",
+   "claim": "加州律師資格 5 度「停權」，淪為「選舉便利貼」",
+   "status": "部分屬實",
+   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5436554",
+   "response": "蔣 2022 年回應：因遲繳會費與補交指紋，已補件恢復，無懲戒紀錄"
   },
   {
    "date": "2026-07",
@@ -146,7 +166,18 @@
    "layer": "論壇與社群",
    "claim": "北市 4 年油品零抽驗（含網路梗圖）",
    "status": "單方澄清",
-   "url": "https://www.worldjournal.com/wj/story/121221/9640924"
+   "url": "https://www.worldjournal.com/wj/story/121221/9640924",
+   "response": "蔣：北市沒有油品工廠，已稽查 112 家食品廠、驗 90 項油品"
+  },
+  {
+   "date": "2026-07-05",
+   "target": "沈伯洋",
+   "actor": "黃國昌（民眾黨主席）",
+   "layer": "主流媒體",
+   "claim": "指沈配合媒體抹黑他去香港，要求道歉",
+   "status": "評論",
+   "url": "https://newtalk.tw/news/view/2026-07-05/1045311",
+   "response": "沈：當時發言仍可查，且已表示需要再查證"
   },
   {
    "date": "2026-08-05",
@@ -155,7 +186,8 @@
    "layer": "網路／政論節目",
    "claim": "重提章孝嚴改姓過程與動機",
    "status": "評論",
-   "url": "https://www.mirrormedia.mg/external/setn_1884208"
+   "url": "https://www.mirrormedia.mg/external/setn_1884208",
+   "response": ""
   },
   {
    "date": "2026-09-02",
@@ -164,7 +196,8 @@
    "layer": "主流媒體",
    "claim": "兒子以公費名額赴美交換，未主動避嫌",
    "status": "程序爭議",
-   "url": "https://www.nownews.com/news/6871943"
+   "url": "https://www.nownews.com/news/6871943",
+   "response": "蔣宣布不領補助，稱依法依規"
   },
   {
    "date": "2026-09-04",
@@ -173,7 +206,8 @@
    "layer": "主流媒體",
    "claim": "教育部派員查蔣兒僑生身分（「國家機器介入」）",
    "status": "錯誤",
-   "url": "https://cna.com.tw/news/ahel/202609040198.aspx"
+   "url": "https://cna.com.tw/news/ahel/202609040198.aspx",
+   "response": "教育部聲明否認曾查詢或啟動任何程序"
   },
   {
    "date": "2026-09-06",
@@ -182,7 +216,18 @@
    "layer": "主流媒體",
    "claim": "交換地點被特別安排、領 1700 萬選舉補助",
    "status": "未查證",
-   "url": "https://www.mirrormedia.mg/story/20260906-161inv-094040"
+   "url": "https://www.mirrormedia.mg/story/20260906-161inv-094040",
+   "response": ""
+  },
+  {
+   "date": "2026-09-27",
+   "target": "蔣萬安",
+   "actor": "翁達瑞（旅美教授）",
+   "layer": "論壇與社群",
+   "claim": "LinkedIn 履歷有 5 處時間軸不一致（待業期、LL.M. 轉 J.D.、律所設立日）",
+   "status": "未查證",
+   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5587865",
+   "response": ""
   },
   {
    "date": "2026-09-29",
@@ -191,7 +236,8 @@
    "layer": "主流媒體",
    "claim": "金華國中食安是「認知作戰」、蹭食安",
    "status": "部分屬實",
-   "url": "https://udn.com/news/story/6656/9782986"
+   "url": "https://udn.com/news/story/6656/9782986",
+   "response": "沈：校長已證實學生不適，反映事實卻被說造謠"
   },
   {
    "date": "2026-10-04",
@@ -200,7 +246,8 @@
    "layer": "主流媒體",
    "claim": "沈主張在社區中心發放毒品與針頭",
    "status": "爭議中",
-   "url": "https://udn.com/news/story/124652/9794534"
+   "url": "https://udn.com/news/story/124652/9794534",
+   "response": "沈：原文談減害政策，反對除罪化，並邀蔣公開辯論"
   },
   {
    "date": "2026-10-04",
@@ -209,7 +256,8 @@
    "layer": "論壇與社群",
    "claim": "蔣臉書遭網軍洗版，「十萬留言淹沒不了白紙黑字」",
    "status": "評論",
-   "url": "https://udn.com/news/story/124652/9793339"
+   "url": "https://udn.com/news/story/124652/9793339",
+   "response": ""
   },
   {
    "date": "2026-10-07",
@@ -218,7 +266,8 @@
    "layer": "網路／政論節目",
    "claim": "質疑沈要監控中配",
    "status": "曲解／斷章",
-   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5600485"
+   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5600485",
+   "response": "黃暐瀚：沈 2024 年受訪已說明中配是被害人"
   },
   {
    "date": "2026-10-08",
@@ -227,7 +276,8 @@
    "layer": "論壇與社群",
    "claim": "讚蔣帳號疑為蔣團隊小帳",
    "status": "未查證",
-   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5600926"
+   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5600926",
+   "response": "該帳號稱影片取自後援會群組"
   },
   {
    "date": "2026-10-12",
@@ -236,7 +286,8 @@
    "layer": "主流媒體",
    "claim": "盤點沈「造謠」：校園中毒、砍樹、雙城論壇",
    "status": "爭議中",
-   "url": "https://udn.com/news/story/124652/9808101"
+   "url": "https://udn.com/news/story/124652/9808101",
+   "response": ""
   },
   {
    "date": "2026-10-14",
@@ -245,7 +296,8 @@
    "layer": "境外官方",
    "claim": "沈父另一家公司 VWAY 持續和中國貿易「賺紅錢」",
    "status": "爭議中",
-   "url": "https://www.setn.com/news/1922440"
+   "url": "https://www.setn.com/news/1922440",
+   "response": "沈：陸方一貫抹黑，沒必要回應"
   },
   {
    "date": "2026-10-19",
@@ -254,7 +306,8 @@
    "layer": "主流媒體",
    "claim": "蔣在節目上繼續「抹黑」沈要社區發毒品",
    "status": "評論",
-   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5611725"
+   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5611725",
+   "response": ""
   },
   {
    "date": "2026-10-20",
@@ -263,7 +316,18 @@
    "layer": "論壇與社群",
    "claim": "「洋流」操作手法與認知作戰相似",
    "status": "評論",
-   "url": "https://zh.wikipedia.org/zh-tw/%E5%8F%B0%E7%81%A3%E4%BA%8B%E5%AF%A6%E6%9F%A5%E6%A0%B8%E4%B8%AD%E5%BF%83"
+   "url": "https://zh.wikipedia.org/zh-tw/%E5%8F%B0%E7%81%A3%E4%BA%8B%E5%AF%A6%E6%9F%A5%E6%A0%B8%E4%B8%AD%E5%BF%83",
+   "response": "沈：認知作戰是國與國之間的事，反指蔣陣營以 LED 宣傳車造謠"
+  },
+  {
+   "date": "2026-10-20",
+   "target": "沈伯洋",
+   "actor": "徐巧芯（國民黨立委）",
+   "layer": "主流媒體",
+   "claim": "選舉期間在立法院「翹班」，缺席程序委員會與院會表決",
+   "status": "爭議中",
+   "url": "https://setn.com/news/1925424",
+   "response": "沈：出席率 100%、質詢率 94%，連續 5 會期獲公督盟優秀立委"
   },
   {
    "date": "2026-10-21",
@@ -272,7 +336,8 @@
    "layer": "主流媒體",
    "claim": "備詢看大字報、官員「護駕」",
    "status": "單方澄清",
-   "url": "https://udn.com/news/story/124652/9827827"
+   "url": "https://udn.com/news/story/124652/9827827",
+   "response": "蔣：議會備詢即問即答、全程直播"
   },
   {
    "date": "2026-10-21",
@@ -281,7 +346,8 @@
    "layer": "論壇與社群",
    "claim": "「沈伯洋的爺爺打過古寧頭」",
    "status": "錯誤",
-   "url": "https://tfc-taiwan.org.tw/fact-check-reports-all/"
+   "url": "https://tfc-taiwan.org.tw/fact-check-reports-all/",
+   "response": "台灣事實查核中心判定為移花接木"
   },
   {
    "date": "2026-10-21",
@@ -290,7 +356,8 @@
    "layer": "主流媒體",
    "claim": "「市長我不想幹了」是紅衛兵式批鬥",
    "status": "評論",
-   "url": "https://www.worldjournal.com/wj/story/121218/9826410"
+   "url": "https://www.worldjournal.com/wj/story/121218/9826410",
+   "response": ""
   },
   {
    "date": "2026-10-22",
@@ -299,7 +366,8 @@
    "layer": "主流媒體",
    "claim": "颱風假與股市脫鉤是搞錯權責",
    "status": "評論",
-   "url": "https://udn.com/news/story/124652/9830897"
+   "url": "https://udn.com/news/story/124652/9830897",
+   "response": ""
   },
   {
    "date": "2026-10-22",
@@ -308,7 +376,8 @@
    "layer": "論壇與社群",
    "claim": "身高灌水、穿增高鞋",
    "status": "已澄清",
-   "url": "https://www.chinatimes.com/realtimenews/20261023001165-260404"
+   "url": "https://www.chinatimes.com/realtimenews/20261023001165-260404",
+   "response": "蔣在節目上脫鞋證實 176 公分"
   },
   {
    "date": "2026-10-23",
@@ -317,7 +386,8 @@
    "layer": "論壇與社群",
    "claim": "「政治颱風假」",
    "status": "評論",
-   "url": "https://www.chinatimes.com/realtimenews/20261023001407-260407"
+   "url": "https://www.chinatimes.com/realtimenews/20261023001407-260407",
+   "response": "蔣：依氣象數據、中央標準與四市討論決定"
   },
   {
    "date": "2026-10-24",
@@ -326,7 +396,8 @@
    "layer": "論壇與社群",
    "claim": "撿樹枝是作秀",
    "status": "已澄清",
-   "url": "https://tw.news.yahoo.com/%E6%8C%A8%E8%BD%9F%E4%BD%9C%E7%A7%80-%E8%94%A3%E8%90%AC%E5%AE%89%E7%82%BA%E4%BD%95%E7%8F%BE%E8%BA%AB%E6%92%BF%E6%A8%B9%E6%9E%9D-%E6%B8%85%E6%BD%94%E9%9A%8A%E9%95%B7%E5%85%A8%E8%AA%AA%E4%BA%86-124400013.html"
+   "url": "https://tw.news.yahoo.com/%E6%8C%A8%E8%BD%9F%E4%BD%9C%E7%A7%80-%E8%94%A3%E8%90%AC%E5%AE%89%E7%82%BA%E4%BD%95%E7%8F%BE%E8%BA%AB%E6%92%BF%E6%A8%B9%E6%9E%9D-%E6%B8%85%E6%BD%94%E9%9A%8A%E9%95%B7%E5%85%A8%E8%AA%AA%E4%BA%86-124400013.html",
+   "response": "中山區清潔隊長：是他邀請市長體驗"
   },
   {
    "date": "2026-10-25",
@@ -335,16 +406,8 @@
    "layer": "論壇與社群",
    "claim": "競總要求敦化國中學生返校打掃",
    "status": "錯誤",
-   "url": "https://udn.com/news/story/124652/9836659"
-  },
-  {
-   "date": "2025-11 起",
-   "target": "沈伯洋",
-   "actor": "抖音、Threads 帳號",
-   "layer": "論壇與社群",
-   "claim": "沈家 3 家上市公司被中共懲戒、市值蒸發 47 億",
-   "status": "錯誤",
-   "url": "https://tfc-taiwan.org.tw/fact-check-reports/shen-boyang-family-sanction-fake-news/"
+   "url": "https://udn.com/news/story/124652/9836659",
+   "response": "蔣競辦：棒球隊教練主動帶學生協助，場佈由廠商人員負責"
   },
   {
    "date": "持續流傳",
@@ -353,7 +416,8 @@
    "layer": "論壇與社群",
    "claim": "LinkedIn 顯示學歷造假、不是賓大畢業",
    "status": "錯誤",
-   "url": "https://en.cofacts.tw/reply/PugEi5UBYrjt7MSMAKT0"
+   "url": "https://en.cofacts.tw/reply/PugEi5UBYrjt7MSMAKT0",
+   "response": "Cofacts 回應確認為賓大 LLM，2007 年畢業"
   }
  ],
  "factchecks": [
@@ -524,6 +588,42 @@
    "verdict": "曲解／斷章",
    "basis": "競辦公布原節目內容，沈有提到房價並提出婚育宅",
    "url": "https://www.nownews.com/news/6847510"
+  },
+  {
+   "candidate": "蔣萬安",
+   "category": "經歷",
+   "claim": "加州律師資格多次遭「停權」（說法 3 至 6 次不等）",
+   "verdict": "部分屬實",
+   "basis": "蔣 2022 年承認曾因遲繳會費、補交指紋暫停執業資格，稱無懲戒紀錄；屬行政狀態而非懲戒。次數為批評者統計，加州律師公會頁面本站未能讀取，尚未獨立核對",
+   "url": "https://election.ltn.com.tw/2022/news/breakingnews/4113879"
+  },
+  {
+   "candidate": "蔣萬安",
+   "category": "學歷",
+   "claim": "LinkedIn 履歷隱匿 LL.M. 銜接期、待業 10 個月寫成 2 個月",
+   "verdict": "未查證",
+   "basis": "翁達瑞依履歷與雇主資料比對提出，未見蔣方回應或第三方查核",
+   "url": "https://news.ltn.com.tw/news/politics/breakingnews/5587865"
+  },
+  {
+   "candidate": "沈伯洋",
+   "category": "公開發言",
+   "claim": "立法院出席率 100%、質詢率 94%",
+   "verdict": "部分屬實",
+   "basis": "民視比對公督盟資料，院會出席率為 100%；但出席率不涵蓋程序委員會與每次表決，徐巧芯指其缺席其中數場",
+   "url": "https://tw.news.yahoo.com/%E6%B2%88%E4%BC%AF%E6%B4%8B%E8%A2%AB%E6%8E%A7%E8%B9%BA%E7%8F%AD-%E5%AF%A6%E6%9F%A5%E5%85%AC%E7%9D%A3%E7%9B%9F-%E5%84%AA%E7%A7%80%E7%AB%8B%E5%A7%94-%E9%A9%9A%E5%91%86-%E9%99%A2%E6%9C%83%E5%87%BA%E5%B8%AD%E5%85%A8100-085848670.html"
+  }
+ ],
+ "events": [
+  {
+   "date": "2026-10-31T12:00:00+08:00",
+   "label": "電視辯論（TVBS、三立合辦）",
+   "url": "https://www.worldjournal.com/wj/story/121218/9821814"
+  },
+  {
+   "date": "2026-11-28T08:00:00+08:00",
+   "label": "投票日",
+   "url": "https://news.pts.org.tw/article/791108"
   }
  ]
 }

@@ -2,9 +2,10 @@ name: Update data and deploy
 
 on:
   schedule:
-    # GitHub runs schedules on a best-effort basis and drops many of them,
-    # so ask every 10 minutes (off the hour) to get roughly half-hourly runs.
-    # For exact timing, trigger workflow_dispatch from an external cron (see README).
+    # Backup only. Each update dispatches heartbeat.yml, which starts the next
+    # update about 20 minutes later; GitHub drops many schedule runs, so this
+    # cron just restarts that chain if it ever breaks. A missed stretch is
+    # caught up automatically (see catch_up_window).
     - cron: "3,13,23,33,43,53 * * * *"
   workflow_dispatch:
     inputs:
@@ -19,13 +20,30 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: write
 
 concurrency:
   group: update-and-deploy
   cancel-in-progress: false
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Unit tests and reviewed-data checks
+        run: python -m pytest -q
+      - name: Page script syntax
+        run: node --check web/app.js
+
   update:
+    needs: test
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -36,7 +54,6 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: python -m pytest -q
       - name: Fetch and classify
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -53,10 +70,15 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+      - name: Schedule next update
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run heartbeat.yml --repo "${{ github.repository }}" --ref main
 
   deploy:
-    needs: update
-    if: always() && (needs.update.result == 'success' || needs.update.result == 'skipped')
+    needs: [test, update]
+    if: always() && needs.test.result == 'success' && (needs.update.result == 'success' || needs.update.result == 'skipped')
     runs-on: ubuntu-latest
     environment:
       name: github-pages

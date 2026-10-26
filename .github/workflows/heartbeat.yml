@@ -1,0 +1,38 @@
+name: Heartbeat
+
+# GitHub drops many `schedule` runs, so the update job dispatches this
+# workflow when it finishes. It waits, then starts the next update. Only the
+# newest heartbeat is kept (cancel-in-progress), so there is never more than
+# one waiting. The cron in update.yml stays as a backup that restarts the
+# chain if it ever breaks. The chain stops on its own after election day.
+
+on:
+  workflow_dispatch:
+    inputs:
+      wait_minutes:
+        description: "幾分鐘後執行下一次更新"
+        default: "20"
+
+permissions:
+  actions: write
+
+concurrency:
+  group: heartbeat
+  cancel-in-progress: true
+
+jobs:
+  wait-then-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Wait
+        run: sleep $(( ${{ inputs.wait_minutes || '20' }} * 60 ))
+      - name: Start next update
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(TZ=Asia/Taipei date +%Y%m%d)" -gt 20261130 ]; then
+            echo "Election is over; not scheduling more updates."
+            exit 0
+          fi
+          gh workflow run update.yml --repo "${{ github.repository }}" --ref main

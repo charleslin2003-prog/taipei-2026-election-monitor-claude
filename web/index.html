@@ -15,6 +15,8 @@
   <div class="eyebrow">2026 九合一 · 台北市長 · 投票日 11/28</div>
   <h1>蔣萬安 vs 沈伯洋 選戰查核台</h1>
   <p class="lede">自動蒐集 2026 年以來的新聞、論壇與事實查核文章，分類兩位候選人互相攻擊的報導，並附上人工審核的學經歷與家世查核。約每 10 至 30 分鐘自動更新。</p>
+  <p class="principles">聲量不等於支持　·　批評不等於造謠　·　查無不等於沒發生</p>
+  <div class="countdown" id="countdown"></div>
   <div class="live" id="live"><span class="dot stale"></span>載入資料中…</div>
 </header>
 
@@ -54,6 +56,7 @@
     <div id="trend"></div>
   </div>
   <div class="grid2">
+    <div class="box"><h4>近 7 天熱門議題</h4><p class="note" style="font-size:12px">所有相關報導依議題計數，箭頭為與前 7 天相比的增減。</p><div id="hot"></div></div>
     <div class="box"><h4>誰在攻擊誰（發動陣營 × 被攻擊方）</h4><div id="matrix"></div></div>
     <div class="box"><h4>攻擊類報導的來源類型</h4><div id="layers"></div></div>
     <div class="box"><h4>攻擊議題</h4><div id="topics"></div></div>
@@ -69,9 +72,19 @@
     <label for="fKind">類型 <select id="fKind"><option value="">全部</option><option>攻擊</option><option>澄清回應</option><option>其他批評</option><option>一般報導</option></select></label>
     <label for="fLayer">來源類型 <select id="fLayer"><option value="">全部</option></select></label>
     <label for="fTopic">議題 <select id="fTopic"><option value="">全部</option></select></label>
-    <label for="fDays">期間 <select id="fDays"><option value="7">近 7 天</option><option value="30">近 30 天</option><option value="" selected>2026 全年</option></select></label>
+    <label for="fMention">標題提及 <select id="fMention"><option value="">全部</option><option value="蔣萬安">蔣萬安</option><option value="沈伯洋">沈伯洋</option><option value="both">同時提及兩人</option></select></label>
+    <label for="fSource">媒體 <select id="fSource"><option value="">全部</option></select></label>
+    <label for="fDays">期間 <select id="fDays"><option value="1">近 24 小時</option><option value="7">近 7 天</option><option value="30">近 30 天</option><option value="" selected>2026 全年</option></select></label>
+    <label for="fFrom">從 <input type="date" id="fFrom" min="2026-01-01"></label>
+    <label for="fTo">到 <input type="date" id="fTo" min="2026-01-01"></label>
+    <label for="fEdited" class="check"><input type="checkbox" id="fEdited"> 只看標題曾修改</label>
+  </div>
+  <div class="filters">
+    <button type="button" class="ghost" id="reset">清除篩選</button>
+    <button type="button" class="ghost" id="csv">匯出 CSV</button>
     <span class="count" id="feedCount"></span>
   </div>
+  <p class="filter-error" id="dateError" hidden>開始日期不能晚於結束日期。</p>
   <div class="feed" id="feed"></div>
   <button class="more" id="more" hidden>顯示更多</button>
 </section>
@@ -85,7 +98,7 @@
     <span class="count" id="curCount"></span>
   </div>
   <div class="tablewrap"><table class="ledger">
-    <thead><tr><th>日期</th><th>被攻擊方</th><th>發動者</th><th>來源類型</th><th>內容</th><th>查核狀態</th><th>來源</th></tr></thead>
+    <thead><tr><th>日期</th><th>被攻擊方</th><th>發動者</th><th>來源類型</th><th>內容</th><th>當事人回應</th><th>查核狀態</th><th>來源</th></tr></thead>
     <tbody id="curBody"></tbody>
   </table></div>
 </section>
@@ -119,6 +132,16 @@
     <ul>
       <li>Google 新聞搜尋（彙整各家媒體）、台灣事實查核中心、MyGoPen、Cofacts、PTT 八卦板與政黑板。</li>
       <li>GitHub Actions 每 10 分鐘排程一次抓取，但 GitHub 排程不保證準時，尖峰時段可能延遲或跳過，所以實際間隔約 10 至 60 分鐘。首次部署時以每週區間回補 2026/1/1 以來的新聞。</li>
+      <li>若上次成功抓取已超過 2 天，下一次會自動把查詢範圍拉回上次成功的日期，補抓中斷期間的新聞。</li>
+      <li>每個來源失敗時會重試 2 次；單一來源失敗不影響其他來源，也不會清掉既有資料。</li>
+      <li>網頁每 60 秒檢查一次是否有新資料，有更新才重新下載新聞檔；切回分頁時也會立即檢查。</li>
+    </ul>
+  </div>
+  <div class="box method">
+    <h4>標題修改追蹤</h4>
+    <ul>
+      <li>同一則新聞連結若被媒體改了標題，會保留舊標題與發現時間，在「即時新聞」標示「標題曾修改」。只比對文字，忽略標點與空白。</li>
+      <li>只能偵測收錄之後的修改；收錄前的改動、以及只改內文不改標題的情況無法得知。</li>
     </ul>
   </div>
   <div class="box method">

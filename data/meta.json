@@ -1,7 +1,7 @@
 {
   "updated_at": "2026-10-26T08:04:41+00:00",
   "mode": "incremental",
-  "total": 8490,
+  "total": 8487,
   "added": 131,
   "sources": {
     "Google 新聞": {
@@ -46,5 +46,7 @@
     "labelled": 0,
     "errors": []
   },
-  "start_date": "2026-01-01"
+  "start_date": "2026-01-01",
+  "reclassified_at": "2026-10-26T10:51:51+00:00",
+  "headline_edited_total": 3
 }
