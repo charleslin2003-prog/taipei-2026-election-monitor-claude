@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-10-26T00:42:30+00:00",
+  "updated_at": "2026-10-26T06:05:01+00:00",
   "mode": "incremental",
-  "total": 8147,
-  "added": 44,
+  "total": 8359,
+  "added": 212,
   "sources": {
     "Google 新聞": {
       "ok": true,
-      "fetched": 400,
+      "fetched": 396,
       "errors": [],
-      "kept": 275
+      "kept": 258
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -26,13 +26,13 @@
       "ok": true,
       "fetched": 20,
       "errors": [],
-      "kept": 4
+      "kept": 0
     },
     "PTT 政黑板": {
       "ok": true,
       "fetched": 19,
       "errors": [],
-      "kept": 5
+      "kept": 9
     },
     "Cofacts": {
       "ok": true,
