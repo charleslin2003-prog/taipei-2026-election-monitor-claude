@@ -2,7 +2,10 @@ name: Update data and deploy
 
 on:
   schedule:
-    - cron: "7,37 * * * *"   # every 30 minutes (UTC); off the hour to avoid queue spikes
+    # GitHub runs schedules on a best-effort basis and drops many of them,
+    # so ask every 10 minutes (off the hour) to get roughly half-hourly runs.
+    # For exact timing, trigger workflow_dispatch from an external cron (see README).
+    - cron: "3,13,23,33,43,53 * * * *"
   workflow_dispatch:
     inputs:
       backfill:

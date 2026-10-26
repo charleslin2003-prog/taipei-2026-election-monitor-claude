@@ -1,6 +1,6 @@
 # 台北市長選戰查核台（Claude 版）
 
-2026 台北市長選舉（蔣萬安 vs 沈伯洋）的新聞攻防與事實查核平台。GitHub Actions 每 30 分鐘抓取新聞、論壇與查核機構文章，依標題自動分類「誰在攻擊誰」，再部署到 GitHub Pages。
+2026 台北市長選舉（蔣萬安 vs 沈伯洋）的新聞攻防與事實查核平台。GitHub Actions 定時抓取新聞、論壇與查核機構文章，依標題自動分類「誰在攻擊誰」，再部署到 GitHub Pages。
 
 網站：https://charleslin2003-prog.github.io/taipei-2026-election-monitor-claude/
 
@@ -16,7 +16,7 @@
 ## 架構
 
 ```
-GitHub Actions（每 30 分鐘）
+GitHub Actions（每 10 分鐘排程，或外部 cron 觸發）
   └─ scraper/run.py
        ├─ sources.py   Google 新聞 RSS、台灣事實查核中心、MyGoPen、PTT、Cofacts
        ├─ classify.py  規則分類：攻擊／澄清回應／一般報導、被攻擊方、發動陣營、議題、來源類型
@@ -43,6 +43,20 @@ python -m http.server -d . 8000  # 再開 http://localhost:8000/web/ （需把 d
 1. **啟用 Pages**：Settings → Pages → Source 選「GitHub Actions」。
 2. **回補歷史資料**：Actions → Update data and deploy → Run workflow，勾選「回補」。
 3. **（選用）模型分類**：Settings → Secrets and variables → Actions，新增 `ANTHROPIC_API_KEY`。每次執行最多重新標註 300 則（`LLM_PER_RUN` 可調），規則判為攻擊或澄清的標題優先，可用 `CLAUDE_MODEL` 環境變數換模型。
+
+## 準時更新（外部觸發）
+
+GitHub 的 `schedule` 是盡量執行，新 repo 或尖峰時段常被跳過。要保證準時，改由外部 cron 呼叫 `workflow_dispatch`：
+
+1. GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token
+   - Repository access：Only select repositories → 本 repo
+   - Permissions → Repository → **Actions：Read and write**（其他都不用）
+2. 到 [cron-job.org](https://cron-job.org) 建立排程（免費）
+   - URL：`https://api.github.com/repos/charleslin2003-prog/taipei-2026-election-monitor-claude/actions/workflows/update.yml/dispatches`
+   - Method：`POST`，Body：`{"ref":"main"}`
+   - Headers：`Authorization: Bearer <token>`、`Accept: application/vnd.github+json`、`X-GitHub-Api-Version: 2022-11-28`
+   - 排程：每 30 分鐘
+3. 成功時 GitHub 回傳 HTTP 204，Actions 頁會出現 `workflow_dispatch` 的執行紀錄。
 
 ## 調整分類規則
 

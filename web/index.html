@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>台北市長選戰查核台</title>
-<meta name="description" content="2026 台北市長選舉蔣萬安與沈伯洋的新聞攻防、民調與事實查核，每 30 分鐘自動更新。">
+<meta name="description" content="2026 台北市長選舉蔣萬安與沈伯洋的新聞攻防、民調與事實查核，自動更新。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="style.css">
@@ -14,7 +14,7 @@
 <header class="mast">
   <div class="eyebrow">2026 九合一 · 台北市長 · 投票日 11/28</div>
   <h1>蔣萬安 vs 沈伯洋 選戰查核台</h1>
-  <p class="lede">自動蒐集 2026 年以來的新聞、論壇與事實查核文章，分類兩位候選人互相攻擊的報導，並附上人工審核的學經歷與家世查核。每 30 分鐘更新一次。</p>
+  <p class="lede">自動蒐集 2026 年以來的新聞、論壇與事實查核文章，分類兩位候選人互相攻擊的報導，並附上人工審核的學經歷與家世查核。約每 10 至 30 分鐘自動更新。</p>
   <div class="live" id="live"><span class="dot stale"></span>載入資料中…</div>
 </header>
 
@@ -118,7 +118,7 @@
     <div id="health"></div>
     <ul>
       <li>Google 新聞搜尋（彙整各家媒體）、台灣事實查核中心、MyGoPen、Cofacts、PTT 八卦板與政黑板。</li>
-      <li>GitHub Actions 每 30 分鐘抓取一次；首次部署時以每週區間回補 2026/1/1 以來的新聞。</li>
+      <li>GitHub Actions 每 10 分鐘排程一次抓取，但 GitHub 排程不保證準時，尖峰時段可能延遲或跳過，所以實際間隔約 10 至 60 分鐘。首次部署時以每週區間回補 2026/1/1 以來的新聞。</li>
     </ul>
   </div>
   <div class="box method">
