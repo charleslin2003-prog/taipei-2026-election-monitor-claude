@@ -2,19 +2,19 @@
  "firsts": [
   {
    "key": "earliest",
-   "label": "最早一則 2026 台北市長選舉相關報導",
-   "title": "蔣萬安當選臺北市長 外界關注副市長人選",
-   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBIVUVzMGR2NUtkNGlJanJaemtzMm9xZU1lZFhWaUNndl9hQ3ZMZ09sdTFGZ3U0eGtSbV8zLXZqcENrM3JaY2hJNFh5ckZMQ0E?oc=5",
-   "source": "你的公共電視",
-   "published": "2022-11-27T08:00:00+00:00"
+   "label": "最早一則明確談 2026 台北市長選舉的報導",
+   "title": "2026誰戰蔣萬安？一面倒推「綠營女戰將」：中間選民也投她",
+   "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE4yRlkyUENpaU1VUldpS2RkbnlmMEJSNmlsNVV0UHk2TXVHSTRSWWszM3VlVlBfeFpweFJJYl96dmxPOGVrTFVGNV81VDBqVWlPYkNz?oc=5",
+   "source": "TVBS新聞網",
+   "published": "2024-01-21T08:00:00+00:00"
   },
   {
    "key": "chiang_2026",
    "label": "最早提到蔣萬安 2026 連任",
-   "title": "北台灣最大水樂園「水悟空」荒廢2年多 蔣萬安：力拚2026年整修完成",
-   "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1oUkNQdmtSNGdVcWJXYWF1S1haNEhfekJaY2R4S05KZkd1dV9Xc2Qwd3A3dzRGQmtvckZWaG96TUFqQkwxTy1RYWZQSnJReTlUWGEwcUR6UmNaNi1vcjFLN1ZocmLSAWpBVV95cUxQOGg0OWw2UV81THJQdFlsZ0F3Q1VzcEF2QkJUUHhiZ3hoZGpLMnMyakZqbEpsazhxSjBjTHNiSWhLazV0RHBrQU45ZE0tY2ItMi1RcHJ5SXdQeFAxLTlIUEZBbjZKYlpWUnFn?oc=5",
-   "source": "自由時報",
-   "published": "2023-06-08T07:00:00+00:00"
+   "title": "2026誰戰蔣萬安？一面倒推「綠營女戰將」：中間選民也投她",
+   "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE4yRlkyUENpaU1VUldpS2RkbnlmMEJSNmlsNVV0UHk2TXVHSTRSWWszM3VlVlBfeFpweFJJYl96dmxPOGVrTFVGNV81VDBqVWlPYkNz?oc=5",
+   "source": "TVBS新聞網",
+   "published": "2024-01-21T08:00:00+00:00"
   },
   {
    "key": "shen_mayor",
@@ -42,30 +42,6 @@
   }
  ],
  "monthly": {
-  "2022-11": {
-   "蔣萬安": 1,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 1
-  },
-  "2022-12": {
-   "蔣萬安": 1,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 1
-  },
-  "2023-01": {
-   "蔣萬安": 1,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 1
-  },
-  "2023-02": {
-   "蔣萬安": 2,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 2
-  },
   "2023-03": {
    "蔣萬安": 1,
    "沈伯洋": 0,
@@ -78,73 +54,31 @@
    "both": 0,
    "total": 1
   },
-  "2023-05": {
-   "蔣萬安": 1,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 1
-  },
-  "2023-06": {
-   "蔣萬安": 1,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 1
-  },
-  "2023-08": {
-   "蔣萬安": 2,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 2
-  },
-  "2023-10": {
-   "蔣萬安": 1,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 1
-  },
-  "2023-12": {
-   "蔣萬安": 2,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 2
-  },
   "2024-01": {
-   "蔣萬安": 7,
+   "蔣萬安": 2,
    "沈伯洋": 0,
    "both": 0,
-   "total": 7
+   "total": 2
   },
   "2024-02": {
-   "蔣萬安": 4,
+   "蔣萬安": 3,
    "沈伯洋": 0,
    "both": 0,
-   "total": 4
+   "total": 3
   },
   "2024-03": {
-   "蔣萬安": 2,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 2
-  },
-  "2024-04": {
-   "蔣萬安": 5,
-   "沈伯洋": 0,
-   "both": 0,
-   "total": 5
-  },
-  "2024-05": {
    "蔣萬安": 1,
    "沈伯洋": 0,
    "both": 0,
    "total": 1
   },
-  "2024-09": {
-   "蔣萬安": 2,
+  "2024-04": {
+   "蔣萬安": 3,
    "沈伯洋": 0,
    "both": 0,
-   "total": 2
+   "total": 3
   },
-  "2024-11": {
+  "2024-09": {
    "蔣萬安": 1,
    "沈伯洋": 0,
    "both": 0,
@@ -163,10 +97,10 @@
    "total": 3
   },
   "2025-03": {
-   "蔣萬安": 7,
+   "蔣萬安": 5,
    "沈伯洋": 0,
    "both": 0,
-   "total": 7
+   "total": 5
   },
   "2025-04": {
    "蔣萬安": 2,
@@ -175,22 +109,22 @@
    "total": 2
   },
   "2025-05": {
-   "蔣萬安": 8,
+   "蔣萬安": 6,
    "沈伯洋": 0,
    "both": 0,
-   "total": 8
+   "total": 6
   },
   "2025-06": {
-   "蔣萬安": 3,
+   "蔣萬安": 2,
    "沈伯洋": 0,
    "both": 0,
-   "total": 3
+   "total": 2
   },
   "2025-07": {
-   "蔣萬安": 4,
+   "蔣萬安": 2,
    "沈伯洋": 0,
    "both": 0,
-   "total": 4
+   "total": 2
   },
   "2025-08": {
    "蔣萬安": 4,
@@ -205,78 +139,78 @@
    "total": 18
   },
   "2025-11": {
-   "蔣萬安": 60,
+   "蔣萬安": 54,
    "沈伯洋": 48,
    "both": 22,
-   "total": 86
+   "total": 80
   },
   "2025-12": {
-   "蔣萬安": 26,
+   "蔣萬安": 22,
    "沈伯洋": 4,
    "both": 2,
-   "total": 28
+   "total": 24
   },
   "2026-01": {
-   "蔣萬安": 53,
-   "沈伯洋": 1,
+   "蔣萬安": 47,
+   "沈伯洋": 7,
    "both": 0,
    "total": 54
   },
   "2026-02": {
-   "蔣萬安": 25,
-   "沈伯洋": 0,
+   "蔣萬安": 27,
+   "沈伯洋": 5,
    "both": 0,
-   "total": 25
+   "total": 32
   },
   "2026-03": {
-   "蔣萬安": 91,
-   "沈伯洋": 24,
+   "蔣萬安": 108,
+   "沈伯洋": 34,
    "both": 17,
-   "total": 98
+   "total": 125
   },
   "2026-04": {
-   "蔣萬安": 197,
-   "沈伯洋": 219,
+   "蔣萬安": 199,
+   "沈伯洋": 332,
    "both": 159,
-   "total": 257
+   "total": 372
   },
   "2026-05": {
-   "蔣萬安": 426,
-   "沈伯洋": 442,
+   "蔣萬安": 427,
+   "沈伯洋": 510,
    "both": 378,
-   "total": 490
+   "total": 559
   },
   "2026-06": {
-   "蔣萬安": 447,
-   "沈伯洋": 416,
-   "both": 406,
-   "total": 457
+   "蔣萬安": 431,
+   "沈伯洋": 441,
+   "both": 405,
+   "total": 467
   },
   "2026-07": {
-   "蔣萬安": 320,
-   "沈伯洋": 269,
-   "both": 253,
-   "total": 336
+   "蔣萬安": 307,
+   "沈伯洋": 283,
+   "both": 252,
+   "total": 338
   },
   "2026-08": {
-   "蔣萬安": 527,
-   "沈伯洋": 508,
-   "both": 485,
-   "total": 550
+   "蔣萬安": 517,
+   "沈伯洋": 541,
+   "both": 483,
+   "total": 575
   },
   "2026-09": {
-   "蔣萬安": 766,
-   "沈伯洋": 681,
-   "both": 635,
-   "total": 812
+   "蔣萬安": 751,
+   "沈伯洋": 793,
+   "both": 632,
+   "total": 912
   },
   "2026-10": {
-   "蔣萬安": 2605,
-   "沈伯洋": 2144,
-   "both": 2068,
-   "total": 2681
+   "蔣萬安": 2491,
+   "沈伯洋": 2351,
+   "both": 2056,
+   "total": 2786
   }
  },
- "pool_size": 5966,
- "updated_at": "2026-10-27T14:37:48+00:00"
+ "pool_size": 6385,
+ "updated_at": "2026-10-27T14:56:02+00:00"
 }
