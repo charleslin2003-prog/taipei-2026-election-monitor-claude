@@ -3,7 +3,7 @@
   --bg:#f3f5f7; --surface:#ffffff; --fg:#17202a; --muted:#5b6672; --line:#d9dfe5; --grid:#e8ecf0;
   --chiang:#1f4fa3; --chiang-soft:#e3ebf8; --shen:#1d7a4c; --shen-soft:#e1f2e8;
   --ok:#1d7a4c; --warn:#a86a00; --bad:#b3261e; --neutral:#6b7480;
-  --ok-bg:#e4f3ea; --warn-bg:#fbf0dc; --bad-bg:#fbe5e3; --neu-bg:#eceff2; --focus:#1f4fa3;
+  --ok-bg:#e4f3ea; --warn-bg:#fbf0dc; --bad-bg:#fbe5e3; --neu-bg:#eceff2; --focus:#1f4fa3; --bar:#c9d1da;
   --f-display:"Noto Serif TC","Songti TC",serif;
   --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,monospace;
@@ -13,7 +13,7 @@
   --bg:#10151b; --surface:#18202a; --fg:#e6ebf0; --muted:#9aa6b2; --line:#2a3542; --grid:#222c37;
   --chiang:#7ea6ec; --chiang-soft:#1b2a44; --shen:#6cc79a; --shen-soft:#163226;
   --ok:#6cc79a; --warn:#e2b056; --bad:#f08a80; --neutral:#a3adb8;
-  --ok-bg:#163226; --warn-bg:#3a2d12; --bad-bg:#3d1b18; --neu-bg:#232c37; --focus:#7ea6ec; color-scheme:dark}}
+  --ok-bg:#163226; --warn-bg:#3a2d12; --bad-bg:#3d1b18; --neu-bg:#232c37; --focus:#7ea6ec; --bar:#3a4654; color-scheme:dark}}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
@@ -129,3 +129,14 @@ button.ghost:disabled{opacity:.45;cursor:not-allowed}
 .hist ol{margin:6px 0 0;padding-left:1.4em;display:grid;gap:4px}
 .hist s{color:var(--muted)}
 .ledger td.resp{font-size:13px;color:var(--muted);min-width:14em}
+/* v3: election timeline */
+.firsts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.first{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--fg);padding:12px 14px;display:grid;gap:4px;min-width:0;align-content:start}
+.first-label{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+.first-date{font-size:22px;line-height:1.2}
+.first .t{font-weight:500;overflow-wrap:anywhere}
+.chart text.ms{fill:var(--fg);font-size:12px}
+.milestones{margin:0;padding-left:0;list-style:none;display:grid;gap:4px;font-size:13px;counter-reset:ms}
+.milestones li{counter-increment:ms}
+.milestones li::before{content:"▼" counter(ms) "　";font-family:var(--f-mono);color:var(--muted)}
+.tag.era{color:var(--fg);border-color:var(--fg)}

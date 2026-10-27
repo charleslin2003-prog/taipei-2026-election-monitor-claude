@@ -13,7 +13,8 @@ const TONE_VARS = { bad: ["var(--bad)", "var(--bad-bg)"], warn: ["var(--warn)", 
 const CAMPS = ["藍營", "綠營", "白營", "境外官方", "名嘴與節目", "網友與粉專", "不明"];
 const FEED_FILTERS = ["q", "fTarget", "fKind", "fLayer", "fTopic", "fMention", "fSource", "fDays", "fFrom", "fTo", "fEdited"];
 
-const state = { news: [], meta: {}, curated: { polls: [], attacks: [], factchecks: [], events: [] }, shown: PAGE, stamp: null, busy: false, lastRows: [] };
+const state = { news: [], meta: {}, curated: { polls: [], attacks: [], factchecks: [], events: [], milestones: [] }, shown: PAGE, stamp: null, busy: false, lastRows: [],
+  firsts: { firsts: [], monthly: {} }, history: null, historyLoading: null, histShown: PAGE };
 const $ = (id) => document.getElementById(id);
 
 function esc(s) {
@@ -59,9 +60,13 @@ async function load() {
     const [meta, curated] = await Promise.all([getJSON("data/meta.json").catch(() => ({})), getJSON("data/curated.json")]);
     const changed = !state.stamp || (meta.updated_at && meta.updated_at !== state.stamp);
     if (changed) {
-      const news = await getJSON("data/news.json").catch(() => state.news);
+      const [news, firsts] = await Promise.all([
+        getJSON("data/news.json").catch(() => state.news),
+        getJSON("data/firsts.json").catch(() => state.firsts),
+      ]);
       if (!Array.isArray(news)) throw new Error("新聞資料格式錯誤");
-      Object.assign(state, { news, meta, curated, stamp: meta.updated_at || "none" });
+      Object.assign(state, { news, firsts, meta, curated, stamp: meta.updated_at || "none" });
+      if (state.history) state.history = null; // reload lazily with the new data
       renderAll();
     } else {
       const curatedChanged = JSON.stringify(curated) !== JSON.stringify(state.curated);
@@ -106,6 +111,7 @@ function renderLive() {
   const notes = [];
   if (m.mode === "catch_up") notes.push(`<span class="warnline">上次抓取中斷較久，本次已自動補抓${m.window?.since ? "自 " + esc(m.window.since) : "近 " + esc(m.window?.when || "")}的新聞。</span>`);
   if (!fresh) notes.push(`<span class="warnline">超過 90 分鐘沒有更新，GitHub 排程可能延遲。</span>`);
+  if (m.history?.total) notes.push(`<span>· 另有 2026 年以前的選舉報導 <span class="mono">${m.history.total}</span> 則（最早 ${esc(taipeiDay(m.history.earliest))}）</span>`);
   $("live").innerHTML = `<span class="dot${fresh ? "" : " stale"}"></span>最後更新 ${esc(ago(m.updated_at))}（${esc(fmtDate(m.updated_at))}）· 共 <span class="mono">${state.news.length}</span> 則 ${chips}${notes.join("")}`;
 }
 
@@ -137,8 +143,7 @@ function renderTrend() {
   const idx = new Map(weeks.map((w, i) => [w.getTime(), i]));
   const series = CANDS.map(() => weeks.map(() => 0));
   a.forEach((n) => { const ci = CANDS.indexOf(n.cls.target); const wi = idx.get(weekStart(n.published).getTime()); if (ci >= 0 && wi != null) series[ci][wi]++; });
-  const max = Math.max(4, ...series.flat());
-  const nice = Math.ceil(max / 4) * 4;
+  const nice = niceMax(Math.max(4, ...series.flat()));
   const W = 1000, H = 240, L = 40, R = 12, T = 12, B = 28;
   const x = (i) => L + (weeks.length === 1 ? 0 : (i * (W - L - R)) / (weeks.length - 1));
   const y = (v) => T + (H - T - B) * (1 - v / nice);
@@ -230,6 +235,7 @@ function newsCard(n) {
   if (n.verdict) tags.push(pill(n.verdict));
   (c.topics || []).forEach((t) => tags.push(`<span class="tag">${esc(t)}</span>`));
   const by = c.by === "llm" ? "模型分類" : `規則分類${c.confidence ? "（信心" + esc(c.confidence) + "）" : ""}`;
+  if (n.era === "history") tags.unshift(`<span class="tag era">2026 前</span>`);
   const hist = n.title_history?.length
     ? `<details class="hist"><summary>${pill("標題曾修改")} ${n.title_history.length} 次</summary><ol>${n.title_history.map((h) => `<li><s>${esc(h.title)}</s><span class="auto"> 發現改動：${esc(fmtDate(h.replaced_at))}</span></li>`).join("")}</ol></details>`
     : "";
@@ -241,12 +247,16 @@ function newsCard(n) {
 function filteredNews() {
   const q = $("q").value.trim(), t = $("fTarget").value, k = $("fKind").value, l = $("fLayer").value, tp = $("fTopic").value;
   const mention = $("fMention").value, src = $("fSource").value, from = $("fFrom").value, to = $("fTo").value, edited = $("fEdited").checked;
-  const days = +$("fDays").value;
+  const all = $("fDays").value === "all";
+  const days = all ? 0 : +$("fDays").value;
   const since = days ? Date.now() - days * 86400000 : 0;
   const bad = Boolean(from && to && from > to);
   $("dateError").hidden = !bad;
   if (bad) return [];
-  return state.news.filter((n) => {
+  const wantHistory = all || (from && from < "2026-01-01");
+  if (wantHistory && !state.history) { loadHistory().then(renderFeed); }
+  const pool = wantHistory && state.history ? state.news.concat(state.history) : state.news;
+  return pool.filter((n) => {
     const c = n.cls || {};
     if (q && !(`${n.title} ${n.summary || ""} ${n.source} ${(n.title_history || []).map((h) => h.title).join(" ")}`.includes(q))) return false;
     if (t && c.target !== t) return false;
@@ -270,8 +280,9 @@ function filteredNews() {
 
 function renderFeed() {
   const rows = filteredNews();
+  const waiting = ($("fDays").value === "all" || ($("fFrom").value && $("fFrom").value < "2026-01-01")) && !state.history;
   state.lastRows = rows;
-  $("feedCount").textContent = `符合 ${rows.length} 則`;
+  $("feedCount").textContent = waiting ? `符合 ${rows.length} 則（正在載入 2026 年以前的報導…）` : `符合 ${rows.length} 則`;
   $("csv").disabled = rows.length === 0;
   $("feed").innerHTML = rows.length ? rows.slice(0, state.shown).map(newsCard).join("") : `<div class="empty">${state.news.length ? "沒有符合條件的報導。可以放寬篩選；沒有收錄不代表沒有相關新聞。" : "還沒有自動抓取的資料，第一次排程執行後就會出現。"}</div>`;
   $("more").hidden = rows.length <= state.shown;
@@ -335,12 +346,93 @@ function renderHealth() {
     : `<p class="note">尚未執行過自動抓取。</p>`;
 }
 
+async function loadHistory() {
+  if (state.history) return state.history;
+  if (!state.historyLoading) {
+    state.historyLoading = getJSON("data/history.json")
+      .then((h) => (state.history = Array.isArray(h) ? h : []))
+      .catch(() => (state.history = []))
+      .finally(() => { state.historyLoading = null; });
+  }
+  return state.historyLoading;
+}
+
+function renderFirsts() {
+  const F = state.firsts.firsts || [];
+  $("firsts").innerHTML = F.length ? F.map((f) => `<article class="first">
+      <div class="first-label">${esc(f.label)}</div>
+      <div class="first-date mono">${esc(taipeiDay(f.published))}</div>
+      <div class="t">${link(f.url, f.title)}</div>
+      <div class="meta"><span>${esc(f.source)}</span></div></article>`).join("")
+    : `<div class="empty">尚未執行回溯，還沒有 2026 年以前的資料。</div>`;
+}
+
+// Round an axis maximum up to 1, 2 or 5 times a power of ten.
+function niceMax(v) {
+  const p = 10 ** Math.floor(Math.log10(Math.max(v, 1)));
+  return [1, 2, 5, 10].map((k) => k * p).find((n) => n >= v);
+}
+
+function renderMonthly() {
+  const M = state.firsts.monthly || {};
+  const pre = $("mRange").value === "pre";
+  const keys = Object.keys(M).sort().filter((k) => !pre || k < "2026-01");
+  if (!keys.length) { $("monthly").innerHTML = `<div class="empty">尚無資料</div>`; $("milestones").innerHTML = ""; return; }
+  // Fill empty months so the time axis is continuous.
+  const months = [];
+  for (let [y, m] = keys[0].split("-").map(Number); `${y}-${String(m).padStart(2, "0")}` <= keys[keys.length - 1];) {
+    months.push(`${y}-${String(m).padStart(2, "0")}`); m++; if (m > 12) { m = 1; y++; }
+  }
+  const val = (k, f) => (M[k] ? M[k][f] : 0);
+  const nice = niceMax(Math.max(4, ...months.map((k) => val(k, "total"))));
+  const W = 1000, H = 260, L = 44, R = 12, T = 22, B = 30;
+  const bw = (W - L - R) / months.length;
+  const x = (i) => L + i * bw;
+  const y = (v) => T + (H - T - B) * (1 - v / nice);
+  let g = "";
+  for (let k = 0; k <= 4; k++) { const v = (nice / 4) * k; g += `<line class="gridline" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`; }
+  months.forEach((k, i) => {
+    const v = val(k, "total");
+    if (v) g += `<rect x="${(x(i) + bw * 0.12).toFixed(1)}" y="${y(v).toFixed(1)}" width="${(bw * 0.76).toFixed(1)}" height="${(y(0) - y(v)).toFixed(1)}" fill="var(--bar)"><title>${k}：${v} 則</title></rect>`;
+    const [yy, mm] = k.split("-");
+    if (mm === "01" || i === 0) g += `<text x="${x(i) + bw / 2}" y="${H - 8}" text-anchor="middle">${yy}</text>`;
+  });
+  [["蔣萬安", "var(--chiang)"], ["沈伯洋", "var(--shen)"]].forEach(([c, col]) => {
+    const pts = months.map((k, i) => `${(x(i) + bw / 2).toFixed(1)},${y(val(k, c)).toFixed(1)}`).join(" ");
+    g += `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.8"/>`;
+  });
+  const ms = (state.curated.milestones || []).filter((m) => m.date.slice(0, 7) >= months[0] && m.date.slice(0, 7) <= months[months.length - 1]);
+  ms.forEach((m, n) => {
+    const i = months.indexOf(m.date.slice(0, 7));
+    const cx = x(i) + bw / 2;
+    g += `<line x1="${cx}" x2="${cx}" y1="${T}" y2="${y(0)}" stroke="var(--muted)" stroke-dasharray="3 3"/><text x="${cx}" y="${T - 6}" text-anchor="middle" class="ms">▼${n + 1}</text>`;
+  });
+  $("monthly").innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="每月選舉相關報導數長條圖">${g}</svg>`;
+  $("milestones").innerHTML = ms.map((m) => `<li><span class="mono">${esc(m.date)}</span> ${link(m.url, m.label)}</li>`).join("");
+}
+
+async function renderHistory() {
+  if (!state.history) {
+    $("histFeed").innerHTML = `<div class="empty">載入 2026 年以前的報導中…</div>`;
+    await loadHistory();
+  }
+  const q = $("hq").value.trim();
+  const rows = state.history.filter((n) => !q || `${n.title} ${n.source}`.includes(q))
+    .sort((a, b) => (a.published || "").localeCompare(b.published || "") * ($("hSort").value === "asc" ? 1 : -1));
+  $("histCount").textContent = `符合 ${rows.length} 則`;
+  $("histFeed").innerHTML = rows.length ? rows.slice(0, state.histShown).map(newsCard).join("")
+    : `<div class="empty">${state.history.length ? "沒有符合的報導。" : "尚未執行回溯，或回溯沒有找到 2026 年以前的報導。"}</div>`;
+  $("histMore").hidden = rows.length <= state.histShown;
+}
+
+function renderTimeline() { renderFirsts(); renderMonthly(); if (!$("p-timeline").hidden) renderHistory(); }
+
 function renderAll() {
   renderLive(); renderTiles(); renderTrend(); renderHot(); renderMatrix(); renderBreakdowns();
   fillSelect("fLayer", state.news.map((n) => n.cls?.layer));
   fillSelect("fTopic", state.news.flatMap((n) => n.cls?.topics || []));
   fillSelect("fSource", state.news.map((n) => n.source), true);
-  renderFeed(); renderCurated(); renderFC(); renderPolls(); renderHealth();
+  renderFeed(); renderCurated(); renderFC(); renderPolls(); renderHealth(); renderTimeline();
 }
 
 FEED_FILTERS.forEach((id) => $(id).addEventListener(id === "q" ? "input" : "change", () => { state.shown = PAGE; renderFeed(); }));
@@ -354,7 +446,12 @@ $("reset").addEventListener("click", () => { resetFeed(); renderFeed(); });
 const tabs = [...document.querySelectorAll("nav.tabs button")];
 function show(p) {
   tabs.forEach((b) => { const on = b.dataset.p === p; b.setAttribute("aria-selected", on); $("p-" + b.dataset.p).hidden = !on; });
+  if (p === "timeline") renderHistory();
 }
+$("mRange").addEventListener("change", renderMonthly);
+$("hq").addEventListener("input", () => { state.histShown = PAGE; renderHistory(); });
+$("hSort").addEventListener("change", () => { state.histShown = PAGE; renderHistory(); });
+$("histMore").addEventListener("click", () => { state.histShown += PAGE; renderHistory(); });
 tabs.forEach((b) => b.addEventListener("click", () => { show(b.dataset.p); history.replaceState(null, "", "#" + b.dataset.p); }));
 function openFeed(apply) { resetFeed(); apply(); renderFeed(); show("feed"); history.replaceState(null, "", "#feed"); $("p-feed").scrollIntoView({ block: "start" }); }
 $("tiles").addEventListener("click", (e) => {

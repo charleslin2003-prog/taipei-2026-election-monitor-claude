@@ -3,6 +3,7 @@
 Usage:
     python -m scraper.run              # incremental: last two days of news
     python -m scraper.run --backfill   # week-by-week from START_DATE to today
+    python -m scraper.run --history    # look back before 2026 for the earliest race news
     python -m scraper.run --offline    # reclassify existing data only (no network)
 """
 from __future__ import annotations
@@ -20,12 +21,15 @@ from pathlib import Path
 
 from . import classify as K
 from . import config as C
+from . import history as H
 from . import llm
 from . import sources as S
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 NEWS = DATA / "news.json"
+HISTORY = DATA / "history.json"     # pre-2026 stories about the 2026 race
+FIRSTS = DATA / "firsts.json"       # earliest stories and monthly coverage
 META = DATA / "meta.json"
 LLM_PER_RUN = int(os.environ.get("LLM_PER_RUN", "300"))
 INCREMENTAL_DAYS = 2      # normal look-back window for each run
@@ -73,7 +77,7 @@ def load(path: Path, default):
 
 def write_lines(path: Path, rows: list[dict]):
     """One record per line keeps git diffs readable."""
-    body = ",\n".join(json.dumps(r, ensure_ascii=False, sort_keys=True) for r in rows)
+    body = ",\n".join(json.dumps(r, ensure_ascii=False, sort_keys=True, separators=(",", ":")) for r in rows)
     tmp = path.with_suffix(".tmp")
     tmp.write_text("[\n" + body + "\n]\n", encoding="utf-8")
     tmp.replace(path)
@@ -145,13 +149,21 @@ def gather(backfill: bool, previous: dict | None = None, now: datetime | None = 
     return raw, health, window
 
 
-def to_record(r: dict) -> dict | None:
+def to_record(r: dict, allow_history: bool = False) -> dict | None:
+    """Raw item -> stored record, or None when it is not relevant.
+
+    Items published before START_DATE are kept only with allow_history and
+    only when the headline is about the 2026 race; they get era="history".
+    """
     if not r.get("title") or not K.is_relevant(r["title"], r.get("summary", "")):
         return None
     pub = r.get("published")
-    if pub and pub[:10] < C.START_DATE:
-        return None
     title = K.display_title(r["title"], r.get("source", ""))
+    era = None
+    if pub and pub[:10] < C.START_DATE:
+        if not (allow_history and H.is_election_story(title, pub)):
+            return None
+        era = "history"
     rec = {
         "id": item_id(r["title"], r.get("source", "")),
         "title": title,
@@ -165,7 +177,34 @@ def to_record(r: dict) -> dict | None:
     rec["cls"] = K.classify(title, r.get("summary", ""), rec["source"], rec["url"], rec["origin"])
     if rec["cls"]["layer"] == "查核機構":
         rec["verdict"] = K.factcheck_verdict(title, r.get("categories"))
+    if era:
+        rec["era"] = era
     return rec
+
+
+def retrying_fetch(errors: list[str]):
+    """Google News fetch with retries; a failed window returns [] and is logged."""
+    def fetch(query: str) -> list[dict]:
+        for attempt in range(RETRIES + 1):
+            try:
+                return S.google_news(query)
+            except Exception as e:  # noqa: BLE001
+                if attempt == RETRIES:
+                    errors.append(f"{query}: {type(e).__name__}: {e}"[:200])
+                    return []
+                time.sleep(2 ** attempt)
+        return []
+    return fetch
+
+
+def run_history(now_dt: datetime) -> tuple[list[dict], dict]:
+    errors: list[str] = []
+    keep = lambda r: bool(to_record(r, allow_history=True)) and (r.get("published") or "")[:10] < C.START_DATE
+    raw, report = H.scan(retrying_fetch(errors), now_dt.date(), keep, sleep=S.polite_sleep)
+    report["errors"] = errors[:20]
+    report["failed_requests"] = len(errors)
+    report["ran_at"] = now_dt.isoformat()
+    return raw, report
 
 
 def _record_title_change(old: dict, new_title: str, now: str) -> bool:
@@ -262,6 +301,7 @@ def llm_pass(rows: list[dict]) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--backfill", action="store_true")
+    ap.add_argument("--history", action="store_true")
     ap.add_argument("--offline", action="store_true")
     args = ap.parse_args(argv)
 
@@ -269,8 +309,10 @@ def main(argv=None) -> int:
     now_dt = datetime.now(timezone.utc).replace(microsecond=0)
     now = now_dt.isoformat()
     existing = load(NEWS, [])
+    history = load(HISTORY, [])
     meta = load(META, {})
     window, edits = {}, 0
+    hist_report = None
 
     if args.offline:
         raw, health = [], {}
@@ -285,13 +327,31 @@ def main(argv=None) -> int:
         rows, added = sorted(existing, key=lambda e: e.get("published") or "", reverse=True), 0
     else:
         raw, health, window = gather(args.backfill, meta.get("sources", {}), now_dt)
-        fresh = [rec for rec in map(to_record, raw) if rec]
+        if args.history:
+            hist_raw, hist_report = run_history(now_dt)
+            raw += hist_raw
+        fresh = [rec for rec in (to_record(r, allow_history=args.history) for r in raw) if rec]
         for name, h in health.items():
             h["kept"] = len({f["id"] for f in fresh if f["origin"] == name})
+        old_fresh = [f for f in fresh if f.get("era") == "history"]
+        fresh = [f for f in fresh if f.get("era") != "history"]
         rows, added, edits = merge(existing, fresh, now)
+        if old_fresh:
+            history, hist_added, _ = merge(history, old_fresh, now)
+            hist_report["added"] = hist_added
 
     llm_status = llm_pass(rows)
     write_lines(NEWS, rows)
+    if history:
+        write_lines(HISTORY, history)
+    firsts = H.compute_firsts(history, rows)
+    firsts["updated_at"] = now
+    FIRSTS.write_text(json.dumps(firsts, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    if hist_report is not None:
+        meta["history"] = {**hist_report, "total": len(history),
+                           "earliest": min((r["published"] for r in history if r.get("published")), default=None)}
+    elif "history" in meta:
+        meta["history"]["total"] = len(history)
     if args.offline:
         # Reclassifying is not a fetch: keep the fetch time and window shown on the site.
         meta.update({"reclassified_at": now, "total": len(rows),
@@ -301,7 +361,7 @@ def main(argv=None) -> int:
         return 0
     meta.update({
         "updated_at": now,
-        "mode": window.get("mode", "incremental"),
+        "mode": "history" if args.history else window.get("mode", "incremental"),
         "window": window,
         "total": len(rows),
         "added": added,

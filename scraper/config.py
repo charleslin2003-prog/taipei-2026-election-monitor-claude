@@ -98,3 +98,29 @@ RSS_FEEDS = {
 COFACTS_GRAPHQL = "https://api.cofacts.tw/graphql"
 
 USER_AGENT = "taipei-2026-election-monitor-claude/1.0 (+https://github.com/charleslin2003-prog/taipei-2026-election-monitor-claude)"
+
+# ---------------------------------------------------------------- history
+# News before START_DATE is kept only when it is about the 2026 race. The
+# history pass searches month by month back to HISTORY_FLOOR (the day after
+# 蔣萬安 won in 2022, when talk of a 2026 re-election could begin), then keeps
+# going further back until HISTORY_STOP_AFTER_EMPTY months in a row find
+# nothing, never earlier than HISTORY_HARD_FLOOR.
+HISTORY_FLOOR = "2022-11-27"
+HISTORY_HARD_FLOOR = "2019-01-01"
+HISTORY_STOP_AFTER_EMPTY = 6
+HISTORY_QUERIES = [
+    "蔣萬安 連任", "蔣萬安 2026", "台北市長 2026", "2026 台北市長 民進黨",
+    "沈伯洋 台北市長", "沈伯洋 市長",
+]
+# In 2026 the generic queries hit Google's ~100-results cap every week; these
+# narrower election queries are re-run with window splitting during a history
+# pass so election stories in busy weeks are not lost.
+HISTORY_2026_QUERIES = ["蔣萬安 沈伯洋", "台北市長 選舉", "沈伯洋 參選", "蔣萬安 連任"]
+# A window that returns at least this many items is assumed capped and split.
+RESULT_CAP = 95
+HISTORY_MAX_REQUESTS = 1500
+# Words that make a pre-2026 headline about the 2026 race.
+ELECTION_TERMS = [
+    "2026", "連任", "參選", "選舉", "選戰", "民調", "提名", "徵召", "人選", "對手", "出戰",
+    "挑戰者", "大選", "九合一", "母雞", "市長選", "接班", "競選", "選情", "藍綠", "對決",
+]

@@ -46,6 +46,9 @@ def test_polls_and_events():
     for p in DATA["polls"]:
         assert 0 <= p["chiang"] <= 100 and 0 <= p["shen"] <= 100
         assert is_url(p["url"])
+    for m in DATA.get("milestones", []):
+        datetime.fromisoformat(m["date"])
+        assert m["label"].strip() and is_url(m["url"])
     for e in DATA.get("events", []):
         assert datetime.fromisoformat(e["date"]).tzinfo is not None
         assert e["label"].strip() and is_url(e["url"])

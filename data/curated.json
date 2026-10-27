@@ -625,5 +625,37 @@
    "label": "投票日",
    "url": "https://news.pts.org.tw/article/791108"
   }
+ ],
+ "milestones": [
+  {
+   "date": "2022-11-26",
+   "label": "蔣萬安當選台北市長",
+   "url": "https://news.pts.org.tw/article/611248"
+  },
+  {
+   "date": "2025-11-12",
+   "label": "曹興誠呼籲徵召沈伯洋參選台北市長",
+   "url": "https://udn.com/news/story/124652/9133888"
+  },
+  {
+   "date": "2026-01-29",
+   "label": "TVBS 民調：蔣萬安對鄭麗君、王世堅均領先逾 3 成",
+   "url": "https://news.tvbs.com.tw/politics/3114953"
+  },
+  {
+   "date": "2026-04-15",
+   "label": "沈伯洋拜會北市議會民進黨團",
+   "url": "https://newtalk.tw/news/view/2026-04-15/1029948"
+  },
+  {
+   "date": "2026-05-13",
+   "label": "民進黨正式提名沈伯洋",
+   "url": "https://news.pts.org.tw/article/808132"
+  },
+  {
+   "date": "2026-10-20",
+   "label": "信民協會民調首度出現沈伯洋領先",
+   "url": "https://www.ettoday.net/news/20261020/3257641.htm"
+  }
  ]
 }

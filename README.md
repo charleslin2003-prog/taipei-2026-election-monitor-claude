@@ -11,6 +11,7 @@
 - **標題修改追蹤**：同一則新聞連結被媒體改標題時，保留舊標題與發現時間
 - **人工審核攻防**：逐則檢視過的攻擊紀錄、當事人回應與查核狀態
 - **個資查核**：學歷、經歷、家世、公開發言的查核結論與依據，以及查核機構的最新文章
+- **選戰時間軸**：各項「最早報導」（最早提到蔣萬安連任、沈伯洋與市長、兩人同框、對決民調）、2022 年起每月選舉報導數、人工里程碑、2026 年以前的選舉新聞列表
 - **民調**：各機構民調對照
 - **方法**：各資料源的抓取狀態與錯誤訊息
 
@@ -22,7 +23,8 @@ GitHub Actions：每次更新結束 → heartbeat.yml 等 20 分鐘 → 觸發�
        ├─ sources.py   Google 新聞 RSS、台灣事實查核中心、MyGoPen、PTT、Cofacts
        ├─ classify.py  規則分類：攻擊／澄清回應／一般報導、被攻擊方、發動陣營、議題、來源類型
        └─ llm.py       （選用）Claude API 重新標註
-  └─ data/news.json、data/meta.json  → commit 回 repo
+       └─ history.py   回溯 2026 年以前的選舉新聞、計算最早報導
+  └─ data/news.json、history.json、firsts.json、meta.json  → commit 回 repo
   └─ web/ + data/  → GitHub Pages
 ```
 
@@ -35,6 +37,7 @@ pip install -r requirements.txt
 python -m pytest -q              # 分類規則、資料合併與人工資料格式測試
 python -m scraper.run            # 抓取近兩天
 python -m scraper.run --backfill # 回補 2026/1/1 以來（每週一個區間）
+python -m scraper.run --history  # 回溯 2026 年以前最早的選舉新聞
 python -m scraper.run --offline  # 不連網，只用新規則重新分類現有資料
 python -m http.server -d . 8000  # 再開 http://localhost:8000/web/ （需把 data/ 放在 web/ 旁，或直接看 Pages）
 ```
@@ -43,7 +46,8 @@ python -m http.server -d . 8000  # 再開 http://localhost:8000/web/ （需把 d
 
 1. **啟用 Pages**：Settings → Pages → Source 選「GitHub Actions」。
 2. **回補歷史資料**：Actions → Update data and deploy → Run workflow，勾選「回補」。
-3. **（選用）模型分類**：Settings → Secrets and variables → Actions，新增 `ANTHROPIC_API_KEY`。每次執行最多重新標註 300 則（`LLM_PER_RUN` 可調），規則判為攻擊或澄清的標題優先，可用 `CLAUDE_MODEL` 環境變數換模型。
+3. **回溯最早的選舉新聞**：同上，勾選「回溯」。以選舉關鍵字逐月往回搜尋，至少到 2022/11（蔣萬安當選），之後繼續往前直到連續 6 個月沒有結果；碰到 Google 約 100 則上限的區間會自動切半重查。結果存在 `data/history.json`，最早報導與每月聲量存在 `data/firsts.json`。
+4. **（選用）模型分類**：Settings → Secrets and variables → Actions，新增 `ANTHROPIC_API_KEY`。每次執行最多重新標註 300 則（`LLM_PER_RUN` 可調），規則判為攻擊或澄清的標題優先，可用 `CLAUDE_MODEL` 環境變數換模型。
 
 ## 更新頻率
 

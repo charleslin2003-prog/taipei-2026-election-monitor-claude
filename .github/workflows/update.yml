@@ -13,6 +13,10 @@ on:
         description: "回補 2026/1/1 以來的新聞（約 5–10 分鐘）"
         type: boolean
         default: false
+      history:
+        description: "回溯 2026 年以前最早的選舉新聞（約 15–30 分鐘）"
+        type: boolean
+        default: false
   push:
     branches: [main]
 
@@ -46,7 +50,7 @@ jobs:
     needs: test
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -57,7 +61,7 @@ jobs:
       - name: Fetch and classify
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python -m scraper.run ${{ inputs.backfill && '--backfill' || '' }}
+        run: python -m scraper.run ${{ inputs.backfill && '--backfill' || '' }} ${{ inputs.history && '--history' || '' }}
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"

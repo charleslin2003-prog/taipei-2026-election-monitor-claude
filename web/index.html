@@ -42,6 +42,7 @@
 <nav class="tabs" role="tablist" aria-label="分頁">
   <button role="tab" aria-selected="true" data-p="overview">總覽</button>
   <button role="tab" aria-selected="false" data-p="feed">即時新聞</button>
+  <button role="tab" aria-selected="false" data-p="timeline">選戰時間軸</button>
   <button role="tab" aria-selected="false" data-p="curated">人工審核攻防</button>
   <button role="tab" aria-selected="false" data-p="fc">個資查核</button>
   <button role="tab" aria-selected="false" data-p="poll">民調</button>
@@ -74,7 +75,7 @@
     <label for="fTopic">議題 <select id="fTopic"><option value="">全部</option></select></label>
     <label for="fMention">標題提及 <select id="fMention"><option value="">全部</option><option value="蔣萬安">蔣萬安</option><option value="沈伯洋">沈伯洋</option><option value="both">同時提及兩人</option></select></label>
     <label for="fSource">媒體 <select id="fSource"><option value="">全部</option></select></label>
-    <label for="fDays">期間 <select id="fDays"><option value="1">近 24 小時</option><option value="7">近 7 天</option><option value="30">近 30 天</option><option value="" selected>2026 全年</option></select></label>
+    <label for="fDays">期間 <select id="fDays"><option value="1">近 24 小時</option><option value="7">近 7 天</option><option value="30">近 30 天</option><option value="" selected>2026 全年</option><option value="all">全部（含 2026 前）</option></select></label>
     <label for="fFrom">從 <input type="date" id="fFrom" min="2026-01-01"></label>
     <label for="fTo">到 <input type="date" id="fTo" min="2026-01-01"></label>
     <label for="fEdited" class="check"><input type="checkbox" id="fEdited"> 只看標題曾修改</label>
@@ -87,6 +88,31 @@
   <p class="filter-error" id="dateError" hidden>開始日期不能晚於結束日期。</p>
   <div class="feed" id="feed"></div>
   <button class="more" id="more" hidden>顯示更多</button>
+</section>
+
+<section class="panel" id="p-timeline" hidden>
+  <div>
+    <h3>這場選戰從什麼時候開始被報導</h3>
+    <p class="note">往回搜尋 2026 年以前與這場選舉有關的新聞：標題要提到候選人，並含連任、參選、民調、提名、人選等選舉字詞；2022 年 11 月蔣萬安當選前，標題必須明寫「2026」才算。「最早」是指 Google 新聞目前搜得到的最早一則，不保證是史上第一篇。</p>
+  </div>
+  <div class="firsts" id="firsts"></div>
+  <div class="box">
+    <div class="filters" style="justify-content:space-between"><h4>每月選舉相關報導數</h4>
+      <label for="mRange">顯示範圍 <select id="mRange"><option value="all">全部</option><option value="pre">只看 2026 年以前</option></select></label></div>
+    <div class="legend"><span><i style="--c:var(--muted)"></i>相關報導總數</span><span><i style="--c:var(--chiang)"></i>標題提及蔣萬安</span><span><i style="--c:var(--shen)"></i>標題提及沈伯洋</span><span>▼ 人工標註的里程碑</span></div>
+    <div id="monthly"></div>
+    <ol class="milestones" id="milestones"></ol>
+  </div>
+  <div class="box">
+    <h4>2026 年以前的選舉報導</h4>
+    <div class="filters">
+      <label for="hq">搜尋 <input type="search" id="hq" placeholder="關鍵字，例如 民調"></label>
+      <label for="hSort">排序 <select id="hSort"><option value="asc">最早在前</option><option value="desc">最新在前</option></select></label>
+      <span class="count" id="histCount"></span>
+    </div>
+    <div class="feed" id="histFeed"><div class="empty">切換到這個分頁時載入。</div></div>
+    <button class="more" id="histMore" hidden>顯示更多</button>
+  </div>
 </section>
 
 <section class="panel" id="p-curated" hidden>
@@ -133,6 +159,7 @@
       <li>Google 新聞搜尋（彙整各家媒體）、台灣事實查核中心、MyGoPen、Cofacts、PTT 八卦板與政黑板。</li>
       <li>GitHub Actions 每 10 分鐘排程一次抓取，但 GitHub 排程不保證準時，尖峰時段可能延遲或跳過，所以實際間隔約 10 至 60 分鐘。首次部署時以每週區間回補 2026/1/1 以來的新聞。</li>
       <li>若上次成功抓取已超過 2 天，下一次會自動把查詢範圍拉回上次成功的日期，補抓中斷期間的新聞。</li>
+      <li>「回溯」模式以選舉關鍵字逐月往回搜尋，至少到 2022 年 11 月，之後繼續往前，直到連續 6 個月都找不到為止。某個區間的結果達到 Google 單次約 100 則的上限時，會自動把區間切半重查。</li>
       <li>每個來源失敗時會重試 2 次；單一來源失敗不影響其他來源，也不會清掉既有資料。</li>
       <li>網頁每 60 秒檢查一次是否有新資料，有更新才重新下載新聞檔；切回分頁時也會立即檢查。</li>
     </ul>
