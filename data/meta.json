@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-27T19:53:17+00:00",
+  "updated_at": "2026-10-27T20:14:03+00:00",
   "mode": "incremental",
   "total": 13440,
-  "added": 3,
+  "added": 0,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,9 +10,9 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-27T19:53:17+00:00",
-      "last_success_at": "2026-10-27T19:53:17+00:00",
-      "kept": 239
+      "last_attempt_at": "2026-10-27T20:14:03+00:00",
+      "last_success_at": "2026-10-27T20:14:03+00:00",
+      "kept": 240
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-27T19:53:17+00:00",
-      "last_success_at": "2026-10-27T19:53:17+00:00",
+      "last_attempt_at": "2026-10-27T20:14:03+00:00",
+      "last_success_at": "2026-10-27T20:14:03+00:00",
       "kept": 0
     },
     "MyGoPen": {
@@ -30,29 +30,33 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-27T19:53:17+00:00",
-      "last_success_at": "2026-10-27T19:53:17+00:00",
+      "last_attempt_at": "2026-10-27T20:14:03+00:00",
+      "last_success_at": "2026-10-27T20:14:03+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
-      "ok": true,
-      "fetched": 18,
-      "errors": [],
+      "ok": false,
+      "fetched": 0,
+      "errors": [
+        "ReadTimeout: HTTPSConnectionPool(host='www.ptt.cc', port=443): Read timed out. (read timeout=25)"
+      ],
       "calls": 1,
-      "failed_calls": 0,
-      "last_attempt_at": "2026-10-27T19:53:17+00:00",
+      "failed_calls": 1,
+      "last_attempt_at": "2026-10-27T20:14:03+00:00",
       "last_success_at": "2026-10-27T19:53:17+00:00",
-      "kept": 2
+      "kept": 0
     },
     "PTT 政黑板": {
-      "ok": true,
-      "fetched": 19,
-      "errors": [],
+      "ok": false,
+      "fetched": 0,
+      "errors": [
+        "HTTPError: 522 Server Error: <none> for url: https://www.ptt.cc/atom/HatePolitics.xml"
+      ],
       "calls": 1,
-      "failed_calls": 0,
-      "last_attempt_at": "2026-10-27T19:53:17+00:00",
+      "failed_calls": 1,
+      "last_attempt_at": "2026-10-27T20:14:03+00:00",
       "last_success_at": "2026-10-27T19:53:17+00:00",
-      "kept": 9
+      "kept": 0
     },
     "Cofacts": {
       "ok": true,
@@ -60,8 +64,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-27T19:53:17+00:00",
-      "last_success_at": "2026-10-27T19:53:17+00:00",
+      "last_attempt_at": "2026-10-27T20:14:03+00:00",
+      "last_success_at": "2026-10-27T20:14:03+00:00",
       "kept": 44
     }
   },
