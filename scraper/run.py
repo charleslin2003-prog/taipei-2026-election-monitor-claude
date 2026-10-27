@@ -354,6 +354,7 @@ def main(argv=None) -> int:
                            "earliest": min((r["published"] for r in history if r.get("published")), default=None)}
     elif "history" in meta:
         meta["history"]["total"] = len(history)
+        meta["history"]["earliest"] = min((r["published"] for r in history if r.get("published")), default=None)
     if args.offline:
         # Reclassifying is not a fetch: keep the fetch time and window shown on the site.
         meta.update({"reclassified_at": now, "total": len(rows),
