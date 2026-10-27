@@ -119,8 +119,37 @@ HISTORY_2026_QUERIES = ["蔣萬安 沈伯洋", "台北市長 選舉", "沈伯洋
 # A window that returns at least this many items is assumed capped and split.
 RESULT_CAP = 95
 HISTORY_MAX_REQUESTS = 1500
-# Words that make a pre-2026 headline about the 2026 race.
+# Deciding whether a headline is about the 2026 race (scraper/history.py):
+# keep it when it names a candidate and has an election word, unless one of
+# the exclusions shows it is about something else. Strong patterns win over
+# the exclusions for help-campaigning words.
 ELECTION_TERMS = [
-    "2026", "連任", "參選", "選舉", "選戰", "民調", "提名", "徵召", "人選", "對手", "出戰",
-    "挑戰者", "大選", "九合一", "母雞", "市長選", "接班", "競選", "選情", "藍綠", "對決",
+    "2026", "參選", "選舉", "選戰", "民調", "提名", "徵召", "人選", "對手", "出戰", "對決",
+    "挑戰", "再戰", "力拚", "大選", "九合一", "母雞", "選情", "接班", "勁敵", "首都之",
 ]
+# Before 2025 these words mostly refer to the 2024 national elections, so on
+# their own they do not count for pre-2025 headlines (unless 2026 is named).
+GENERIC_TERMS = ["選舉", "選戰", "大選", "人選", "提名", "參選", "九合一", "挑戰", "力拚"]
+GENERIC_UNTIL = "2025-01-01"
+# 連任 counts when 蔣萬安 is named, unless another officeholder sits next to it.
+REELECT_NEAR = 8
+OTHER_INCUMBENTS = ["立委", "議員", "藍委", "綠委", "總統", "縣長", "高虹安", "賴清德", "侯友宜",
+                    "盧秀燕", "陳其邁", "黃偉哲", "張善政", "謝國樑"]
+STRONG_RACE_PATTERNS = [
+    r"2026.{0,8}(選|市長|連任|民調|九合一|參選|對手|人選|提名|徵召|出戰|首都)",
+    r"(選戰|大選|市長|連任|民調|九合一|參選|對手|人選|首都).{0,6}2026",
+    r"(台北|臺北|北市|首都)市?長(選舉|選戰|大選|之爭|寶座|參選人|候選人|提名)",
+    r"(戰|對決|PK|pk|打敗|擊敗|撼動|對抗|叫陣|力拚)蔣萬安",   # 挑戰/出戰/迎戰/再戰/誰戰 all end in 戰
+    r"蔣萬安(的)?(對手|勁敵|挑戰者)",
+    r"(綠營|民進黨|藍營|國民黨|白營|民眾黨)(的)?(北市|台北|臺北|首都)(市長)?(人選|母雞|候選人|提名)",
+    r"(?<!當)(參選|出戰|角逐|徵召|選)(台北|臺北|北市)(市長|市)",
+]
+EXCLUDE_PATTERNS = [
+    # appointments, not the race
+    r"(副市長|局長|處長|董座|董事長).{0,12}人選|人選.{0,12}(副市長|局長|處長)|董座|董事長|廣告",
+    r"(2018|2020|2022|2024|2028)(?!.{0,10}2026)",           # other elections, unless 2026 is also named
+    r"總統(大選|參選|候選人|熱門|人選|命)|大位|立委(選舉|參選)",
+    # 2026 used as a calendar year
+    r"到2026|2026年?.{0,8}(年會|大會|博覽|運動會|峰會|展覽|燈會|上路|開幕|完工|啟用|實施|整修|完成)|HAPPY|新年|跨年|迎新",
+]
+CAMPAIGN_HELP_PATTERNS = [r"拜票|助選|站台|輔選"]          # helping other candidates

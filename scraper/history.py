@@ -17,12 +17,41 @@ CHIANG = C.CANDIDATES["蔣萬安"]["aliases"]
 SHEN = C.CANDIDATES["沈伯洋"]["aliases"]
 
 
+import re
+
+STRONG = [re.compile(p) for p in C.STRONG_RACE_PATTERNS]
+EXCLUDE = [re.compile(p) for p in C.EXCLUDE_PATTERNS]
+HELP = [re.compile(p) for p in C.CAMPAIGN_HELP_PATTERNS]
+
+
 def _has(title: str, words) -> bool:
     return any(w in title for w in words)
 
 
+def _reelection(title: str) -> bool:
+    """連任 that refers to 蔣萬安 rather than another officeholder."""
+    if not _has(title, CHIANG):
+        return any("市長" in title[max(0, m.start() - C.REELECT_NEAR):m.end() + C.REELECT_NEAR]
+                   for m in re.finditer("連任", title))
+    for m in re.finditer("連任", title):
+        near = title[max(0, m.start() - C.REELECT_NEAR):m.end() + C.REELECT_NEAR]
+        if not _has(near, C.OTHER_INCUMBENTS):
+            return True
+    return False
+
+
+def _terms(title: str, published: str) -> bool:
+    terms = C.ELECTION_TERMS
+    if published[:10] < C.GENERIC_UNTIL and "2026" not in title:
+        terms = [t for t in terms if t not in C.GENERIC_TERMS]
+    return _has(title, terms)
+
+
 def is_election_story(title: str, published: str | None) -> bool:
-    """True when a headline from before START_DATE is about the 2026 race."""
+    """True when a headline is about the 2026 Taipei mayoral race.
+
+    Used for every pre-2026 headline, and for the monthly race-coverage series.
+    """
     if not published or not title:
         return False
     for fp in C.FALSE_POSITIVES:
@@ -30,15 +59,35 @@ def is_election_story(title: str, published: str | None) -> bool:
     chiang, shen = _has(title, CHIANG), _has(title, SHEN)
     if not (chiang or shen):
         return False
-    day = published[:10]
-    if day < C.HISTORY_FLOOR:
-        # Before 蔣萬安 took office only an explicit "2026" ties a story to this race.
-        return "2026" in title
-    if "2028" in title and not _has(title, ["2026", "連任"]):
-        return False  # presidential speculation, not the mayoral race
-    if shen and not chiang and "市長" not in title:
-        return False  # 沈伯洋 stories are about the race only once 市長 is mentioned
-    return _has(title, C.ELECTION_TERMS) or (chiang and shen)
+    strong = any(r.search(title) for r in STRONG)
+    if published[:10] < C.HISTORY_FLOOR:
+        # Before 蔣萬安 took office only an explicit "2026" race reference counts.
+        return "2026" in title and strong
+    if any(r.search(title) for r in EXCLUDE):
+        return False
+    if chiang and shen:
+        return True
+    if strong:
+        return True
+    if any(r.search(title) for r in HELP):
+        return False
+    if shen and not chiang:
+        # Before 2026 a 沈伯洋 story is about the race only once 市長 comes up.
+        if published[:10] < C.START_DATE and "市長" not in title:
+            return False
+        return _terms(title, published) or _reelection(title)
+    return _terms(title, published) or _reelection(title)
+
+
+def is_clear_race_story(title: str, published: str) -> bool:
+    """Stricter test for the "earliest story" card: the headline itself says
+    this is about the 2026 race (strong pattern, both candidates, or 蔣萬安's
+    re-election), not just a poll or a passing election word."""
+    if not is_election_story(title, published):
+        return False
+    return (any(r.search(title) for r in STRONG)
+            or (_has(title, CHIANG) and _has(title, SHEN))
+            or (_has(title, CHIANG) and _reelection(title)))
 
 
 def month_windows(newest_month_start: date, oldest: date):
@@ -127,7 +176,7 @@ def scan(fetch: Callable[[str], list[dict]], today: date, keep: Callable[[dict],
 
 
 FIRSTS = [
-    ("earliest", "最早一則 2026 台北市長選舉相關報導", lambda t: True),
+    ("earliest", "最早一則明確談 2026 台北市長選舉的報導", None),
     ("chiang_2026", "最早提到蔣萬安 2026 連任", lambda t: _has(t, CHIANG) and _has(t, ["連任", "2026"])),
     ("shen_mayor", "最早提到沈伯洋與台北市長", lambda t: _has(t, SHEN) and "市長" in t),
     ("matchup", "最早同時出現兩人名字", lambda t: _has(t, CHIANG) and _has(t, SHEN)),
@@ -145,12 +194,15 @@ def compute_firsts(history: list[dict], current: list[dict]) -> dict:
     Uses history (pre-2026, already filtered) plus 2026 stories that pass the
     same election test, so the monthly series means the same thing throughout.
     """
-    pool = [r for r in history if r.get("published")]
-    pool += [r for r in current if r.get("published") and is_election_story(r["title"], "2025-12-31")]
+    pool = [r for r in history if r.get("published") and is_election_story(r["title"], r["published"])]
+    pool += [r for r in current if r.get("published") and is_election_story(r["title"], r["published"])]
     pool.sort(key=lambda r: r["published"])
     firsts = []
     for key, label, test in FIRSTS:
-        hit = next((r for r in pool if test(r["title"])), None)
+        if test is None:
+            hit = next((r for r in pool if is_clear_race_story(r["title"], r["published"])), None)
+        else:
+            hit = next((r for r in pool if test(r["title"])), None)
         if hit:
             firsts.append({"key": key, "label": label, **_brief(hit)})
     monthly: dict[str, dict] = {}

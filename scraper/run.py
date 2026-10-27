@@ -317,6 +317,8 @@ def main(argv=None) -> int:
     if args.offline:
         raw, health = [], {}
         existing = fold_duplicate_urls(existing)
+        # Re-apply the current race test to saved pre-2026 stories.
+        history = [r for r in fold_duplicate_urls(history) if H.is_election_story(r["title"], r.get("published"))]
         for e in existing:
             if e.get("origin") == "Google 新聞":
                 e["summary"] = ""
@@ -342,7 +344,7 @@ def main(argv=None) -> int:
 
     llm_status = llm_pass(rows)
     write_lines(NEWS, rows)
-    if history:
+    if history or HISTORY.exists():
         write_lines(HISTORY, history)
     firsts = H.compute_firsts(history, rows)
     firsts["updated_at"] = now

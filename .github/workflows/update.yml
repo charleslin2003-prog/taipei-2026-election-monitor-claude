@@ -52,7 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
+      # A run may wait in the queue while another commits data, so start from
+      # the newest main rather than the commit that triggered this run.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
