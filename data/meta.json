@@ -1,23 +1,18 @@
 {
-  "updated_at": "2026-10-29T06:56:18+00:00",
+  "updated_at": "2026-10-29T07:18:36+00:00",
   "mode": "incremental",
-  "total": 15535,
-  "added": 8,
+  "total": 15580,
+  "added": 45,
   "sources": {
     "Google 新聞": {
-      "ok": false,
-      "fetched": 0,
-      "errors": [
-        "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%E8%94%A3%E8%90%AC%E5%AE%89%20when%3A2d&hl=zh-TW&gl=TW&ceid=TW:zh-Hant",
-        "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%E6%B2%88%E4%BC%AF%E6%B4%8B%20when%3A2d&hl=zh-TW&gl=TW&ceid=TW:zh-Hant",
-        "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%E8%94%A3%E8%90%AC%E5%AE%89%20%E6%B2%88%E4%BC%AF%E6%B4%8B%20when%3A2d&hl=zh-TW&gl=TW&ceid=TW:zh-Hant",
-        "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%E5%8F%B0%E5%8C%97%E5%B8%82%E9%95%B7%20%E9%81%B8%E8%88%89%20when%3A2d&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
-      ],
+      "ok": true,
+      "fetched": 400,
+      "errors": [],
       "calls": 4,
-      "failed_calls": 4,
-      "last_attempt_at": "2026-10-29T06:56:18+00:00",
-      "last_success_at": "2026-10-29T06:35:30+00:00",
-      "kept": 0
+      "failed_calls": 0,
+      "last_attempt_at": "2026-10-29T07:18:36+00:00",
+      "last_success_at": "2026-10-29T07:18:36+00:00",
+      "kept": 269
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -25,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-29T06:56:18+00:00",
-      "last_success_at": "2026-10-29T06:56:18+00:00",
+      "last_attempt_at": "2026-10-29T07:18:36+00:00",
+      "last_success_at": "2026-10-29T07:18:36+00:00",
       "kept": 0
     },
     "MyGoPen": {
@@ -35,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-29T06:56:18+00:00",
-      "last_success_at": "2026-10-29T06:56:18+00:00",
+      "last_attempt_at": "2026-10-29T07:18:36+00:00",
+      "last_success_at": "2026-10-29T07:18:36+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
@@ -45,9 +40,9 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-29T06:56:18+00:00",
-      "last_success_at": "2026-10-29T06:56:18+00:00",
-      "kept": 2
+      "last_attempt_at": "2026-10-29T07:18:36+00:00",
+      "last_success_at": "2026-10-29T07:18:36+00:00",
+      "kept": 1
     },
     "PTT 政黑板": {
       "ok": true,
@@ -55,8 +50,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-29T06:56:18+00:00",
-      "last_success_at": "2026-10-29T06:56:18+00:00",
+      "last_attempt_at": "2026-10-29T07:18:36+00:00",
+      "last_success_at": "2026-10-29T07:18:36+00:00",
       "kept": 10
     },
     "Cofacts": {
@@ -65,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-29T06:56:18+00:00",
-      "last_success_at": "2026-10-29T06:56:18+00:00",
+      "last_attempt_at": "2026-10-29T07:18:36+00:00",
+      "last_success_at": "2026-10-29T07:18:36+00:00",
       "kept": 44
     }
   },
@@ -77,12 +72,12 @@
   },
   "start_date": "2026-01-01",
   "reclassified_at": "2026-10-27T15:14:17+00:00",
-  "headline_edited_total": 106,
+  "headline_edited_total": 107,
   "window": {
     "mode": "incremental",
     "when": "2d"
   },
-  "headline_edits": 0,
+  "headline_edits": 1,
   "history": {
     "months_scanned": 44,
     "oldest_month_scanned": "2022-05",
