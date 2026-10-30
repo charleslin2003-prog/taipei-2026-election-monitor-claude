@@ -1,18 +1,18 @@
 {
-  "updated_at": "2026-10-30T19:41:06+00:00",
+  "updated_at": "2026-10-30T20:03:57+00:00",
   "mode": "incremental",
-  "total": 17126,
-  "added": 1,
+  "total": 17132,
+  "added": 6,
   "sources": {
     "Google 新聞": {
       "ok": true,
-      "fetched": 399,
+      "fetched": 400,
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-30T19:41:06+00:00",
-      "last_success_at": "2026-10-30T19:41:06+00:00",
-      "kept": 263
+      "last_attempt_at": "2026-10-30T20:03:57+00:00",
+      "last_success_at": "2026-10-30T20:03:57+00:00",
+      "kept": 255
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-30T19:41:06+00:00",
-      "last_success_at": "2026-10-30T19:41:06+00:00",
+      "last_attempt_at": "2026-10-30T20:03:57+00:00",
+      "last_success_at": "2026-10-30T20:03:57+00:00",
       "kept": 2
     },
     "MyGoPen": {
@@ -30,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-30T19:41:06+00:00",
-      "last_success_at": "2026-10-30T19:41:06+00:00",
+      "last_attempt_at": "2026-10-30T20:03:57+00:00",
+      "last_success_at": "2026-10-30T20:03:57+00:00",
       "kept": 3
     },
     "PTT 八卦板": {
@@ -42,7 +42,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-10-30T19:41:06+00:00",
+      "last_attempt_at": "2026-10-30T20:03:57+00:00",
       "last_success_at": "2026-10-30T19:20:23+00:00",
       "kept": 0
     },
@@ -54,7 +54,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-10-30T19:41:06+00:00",
+      "last_attempt_at": "2026-10-30T20:03:57+00:00",
       "last_success_at": "2026-10-30T19:20:23+00:00",
       "kept": 0
     },
@@ -64,8 +64,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-10-30T19:41:06+00:00",
-      "last_success_at": "2026-10-30T19:41:06+00:00",
+      "last_attempt_at": "2026-10-30T20:03:57+00:00",
+      "last_success_at": "2026-10-30T20:03:57+00:00",
       "kept": 45
     }
   },
