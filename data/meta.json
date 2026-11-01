@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-01T09:55:45+00:00",
+  "updated_at": "2026-11-01T10:18:35+00:00",
   "mode": "incremental",
-  "total": 19769,
-  "added": 17,
+  "total": 19794,
+  "added": 25,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,9 +10,9 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-01T09:55:45+00:00",
-      "last_success_at": "2026-11-01T09:55:45+00:00",
-      "kept": 255
+      "last_attempt_at": "2026-11-01T10:18:35+00:00",
+      "last_success_at": "2026-11-01T10:18:35+00:00",
+      "kept": 254
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-01T09:55:45+00:00",
-      "last_success_at": "2026-11-01T09:55:45+00:00",
+      "last_attempt_at": "2026-11-01T10:18:35+00:00",
+      "last_success_at": "2026-11-01T10:18:35+00:00",
       "kept": 10
     },
     "MyGoPen": {
@@ -30,19 +30,19 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-01T09:55:45+00:00",
-      "last_success_at": "2026-11-01T09:55:45+00:00",
+      "last_attempt_at": "2026-11-01T10:18:35+00:00",
+      "last_success_at": "2026-11-01T10:18:35+00:00",
       "kept": 3
     },
     "PTT 八卦板": {
       "ok": false,
       "fetched": 0,
       "errors": [
-        "HTTPError: 522 Server Error: <none> for url: https://www.ptt.cc/atom/Gossiping.xml"
+        "HTTPError: 500 Server Error: Internal Server Error for url: https://www.ptt.cc/atom/Gossiping.xml"
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-01T09:55:45+00:00",
+      "last_attempt_at": "2026-11-01T10:18:35+00:00",
       "last_success_at": "2026-11-01T08:49:28+00:00",
       "kept": 0
     },
@@ -50,11 +50,11 @@
       "ok": false,
       "fetched": 0,
       "errors": [
-        "HTTPError: 522 Server Error: <none> for url: https://www.ptt.cc/atom/HatePolitics.xml"
+        "HTTPError: 500 Server Error: Internal Server Error for url: https://www.ptt.cc/atom/HatePolitics.xml"
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-01T09:55:45+00:00",
+      "last_attempt_at": "2026-11-01T10:18:35+00:00",
       "last_success_at": "2026-11-01T08:49:28+00:00",
       "kept": 0
     },
@@ -64,8 +64,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-01T09:55:45+00:00",
-      "last_success_at": "2026-11-01T09:55:45+00:00",
+      "last_attempt_at": "2026-11-01T10:18:35+00:00",
+      "last_success_at": "2026-11-01T10:18:35+00:00",
       "kept": 42
     }
   },
