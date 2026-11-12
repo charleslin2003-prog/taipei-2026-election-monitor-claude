@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T18:55:42+00:00",
+  "updated_at": "2026-11-12T19:16:29+00:00",
   "mode": "incremental",
-  "total": 32535,
-  "added": 2,
+  "total": 32538,
+  "added": 3,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,9 +10,9 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-12T18:55:42+00:00",
-      "last_success_at": "2026-11-12T18:55:42+00:00",
-      "kept": 277
+      "last_attempt_at": "2026-11-12T19:16:29+00:00",
+      "last_success_at": "2026-11-12T19:16:29+00:00",
+      "kept": 279
     },
     "台灣事實查核中心": {
       "ok": false,
@@ -22,7 +22,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-12T18:55:42+00:00",
+      "last_attempt_at": "2026-11-12T19:16:29+00:00",
       "last_success_at": "2026-11-12T15:26:44+00:00",
       "kept": 0
     },
@@ -32,8 +32,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-12T18:55:42+00:00",
-      "last_success_at": "2026-11-12T18:55:42+00:00",
+      "last_attempt_at": "2026-11-12T19:16:29+00:00",
+      "last_success_at": "2026-11-12T19:16:29+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
@@ -42,8 +42,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-12T18:55:42+00:00",
-      "last_success_at": "2026-11-12T18:55:42+00:00",
+      "last_attempt_at": "2026-11-12T19:16:29+00:00",
+      "last_success_at": "2026-11-12T19:16:29+00:00",
       "kept": 0
     },
     "PTT 政黑板": {
@@ -52,9 +52,9 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-12T18:55:42+00:00",
-      "last_success_at": "2026-11-12T18:55:42+00:00",
-      "kept": 4
+      "last_attempt_at": "2026-11-12T19:16:29+00:00",
+      "last_success_at": "2026-11-12T19:16:29+00:00",
+      "kept": 3
     },
     "Cofacts": {
       "ok": true,
@@ -62,8 +62,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-12T18:55:42+00:00",
-      "last_success_at": "2026-11-12T18:55:42+00:00",
+      "last_attempt_at": "2026-11-12T19:16:29+00:00",
+      "last_success_at": "2026-11-12T19:16:29+00:00",
       "kept": 43
     }
   },
@@ -79,7 +79,7 @@
     "mode": "incremental",
     "when": "2d"
   },
-  "headline_edits": 1,
+  "headline_edits": 0,
   "history": {
     "months_scanned": 44,
     "oldest_month_scanned": "2022-05",
