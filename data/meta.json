@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-15T19:55:52+00:00",
+  "updated_at": "2026-11-15T20:18:54+00:00",
   "mode": "incremental",
-  "total": 35708,
-  "added": 0,
+  "total": 35709,
+  "added": 1,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,9 +10,9 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-15T19:55:52+00:00",
-      "last_success_at": "2026-11-15T19:55:52+00:00",
-      "kept": 267
+      "last_attempt_at": "2026-11-15T20:18:54+00:00",
+      "last_success_at": "2026-11-15T20:18:54+00:00",
+      "kept": 270
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-15T19:55:52+00:00",
-      "last_success_at": "2026-11-15T19:55:52+00:00",
+      "last_attempt_at": "2026-11-15T20:18:54+00:00",
+      "last_success_at": "2026-11-15T20:18:54+00:00",
       "kept": 4
     },
     "MyGoPen": {
@@ -30,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-15T19:55:52+00:00",
-      "last_success_at": "2026-11-15T19:55:52+00:00",
+      "last_attempt_at": "2026-11-15T20:18:54+00:00",
+      "last_success_at": "2026-11-15T20:18:54+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
@@ -42,7 +42,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-15T19:55:52+00:00",
+      "last_attempt_at": "2026-11-15T20:18:54+00:00",
       "last_success_at": "2026-11-15T19:26:54+00:00",
       "kept": 0
     },
@@ -54,7 +54,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-15T19:55:52+00:00",
+      "last_attempt_at": "2026-11-15T20:18:54+00:00",
       "last_success_at": "2026-11-15T19:26:54+00:00",
       "kept": 0
     },
@@ -64,8 +64,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-15T19:55:52+00:00",
-      "last_success_at": "2026-11-15T19:55:52+00:00",
+      "last_attempt_at": "2026-11-15T20:18:54+00:00",
+      "last_success_at": "2026-11-15T20:18:54+00:00",
       "kept": 41
     }
   },
