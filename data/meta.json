@@ -1,20 +1,18 @@
 {
-  "updated_at": "2026-11-16T20:00:03+00:00",
+  "updated_at": "2026-11-16T20:21:10+00:00",
   "mode": "incremental",
-  "total": 36979,
-  "added": 3,
+  "total": 36983,
+  "added": 4,
   "sources": {
     "Google 新聞": {
-      "ok": "partial",
-      "fetched": 300,
-      "errors": [
-        "HTTPError: 429 Client Error: Too Many Requests for url: https://news.google.com/rss/search?q=%E6%B2%88%E4%BC%AF%E6%B4%8B%20when%3A2d&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
-      ],
+      "ok": true,
+      "fetched": 400,
+      "errors": [],
       "calls": 4,
-      "failed_calls": 1,
-      "last_attempt_at": "2026-11-16T20:00:03+00:00",
-      "last_success_at": "2026-11-16T20:00:03+00:00",
-      "kept": 190
+      "failed_calls": 0,
+      "last_attempt_at": "2026-11-16T20:21:10+00:00",
+      "last_success_at": "2026-11-16T20:21:10+00:00",
+      "kept": 245
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -22,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-16T20:00:03+00:00",
-      "last_success_at": "2026-11-16T20:00:03+00:00",
+      "last_attempt_at": "2026-11-16T20:21:10+00:00",
+      "last_success_at": "2026-11-16T20:21:10+00:00",
       "kept": 3
     },
     "MyGoPen": {
@@ -32,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-16T20:00:03+00:00",
-      "last_success_at": "2026-11-16T20:00:03+00:00",
+      "last_attempt_at": "2026-11-16T20:21:10+00:00",
+      "last_success_at": "2026-11-16T20:21:10+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
@@ -42,8 +40,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-16T20:00:03+00:00",
-      "last_success_at": "2026-11-16T20:00:03+00:00",
+      "last_attempt_at": "2026-11-16T20:21:10+00:00",
+      "last_success_at": "2026-11-16T20:21:10+00:00",
       "kept": 1
     },
     "PTT 政黑板": {
@@ -52,9 +50,9 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-16T20:00:03+00:00",
-      "last_success_at": "2026-11-16T20:00:03+00:00",
-      "kept": 7
+      "last_attempt_at": "2026-11-16T20:21:10+00:00",
+      "last_success_at": "2026-11-16T20:21:10+00:00",
+      "kept": 8
     },
     "Cofacts": {
       "ok": true,
@@ -62,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-16T20:00:03+00:00",
-      "last_success_at": "2026-11-16T20:00:03+00:00",
+      "last_attempt_at": "2026-11-16T20:21:10+00:00",
+      "last_success_at": "2026-11-16T20:21:10+00:00",
       "kept": 43
     }
   },
