@@ -1,30 +1,28 @@
 {
-  "updated_at": "2026-11-20T09:12:58+00:00",
+  "updated_at": "2026-11-20T09:35:06+00:00",
   "mode": "incremental",
-  "total": 40959,
-  "added": 26,
+  "total": 40982,
+  "added": 23,
   "sources": {
     "Google 新聞": {
       "ok": true,
-      "fetched": 350,
+      "fetched": 347,
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-20T09:12:58+00:00",
-      "last_success_at": "2026-11-20T09:12:58+00:00",
-      "kept": 280
+      "last_attempt_at": "2026-11-20T09:35:06+00:00",
+      "last_success_at": "2026-11-20T09:35:06+00:00",
+      "kept": 276
     },
     "台灣事實查核中心": {
-      "ok": false,
-      "fetched": 0,
-      "errors": [
-        "ReadTimeout: HTTPSConnectionPool(host='tfc-taiwan.org.tw', port=443): Read timed out. (read timeout=25)"
-      ],
+      "ok": true,
+      "fetched": 10,
+      "errors": [],
       "calls": 1,
-      "failed_calls": 1,
-      "last_attempt_at": "2026-11-20T09:12:58+00:00",
-      "last_success_at": "2026-11-20T08:51:51+00:00",
-      "kept": 0
+      "failed_calls": 0,
+      "last_attempt_at": "2026-11-20T09:35:06+00:00",
+      "last_success_at": "2026-11-20T09:35:06+00:00",
+      "kept": 1
     },
     "MyGoPen": {
       "ok": true,
@@ -32,29 +30,29 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-20T09:12:58+00:00",
-      "last_success_at": "2026-11-20T09:12:58+00:00",
+      "last_attempt_at": "2026-11-20T09:35:06+00:00",
+      "last_success_at": "2026-11-20T09:35:06+00:00",
       "kept": 1
     },
     "PTT 八卦板": {
+      "ok": true,
+      "fetched": 20,
+      "errors": [],
+      "calls": 1,
+      "failed_calls": 0,
+      "last_attempt_at": "2026-11-20T09:35:06+00:00",
+      "last_success_at": "2026-11-20T09:35:06+00:00",
+      "kept": 1
+    },
+    "PTT 政黑板": {
       "ok": true,
       "fetched": 19,
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-20T09:12:58+00:00",
-      "last_success_at": "2026-11-20T09:12:58+00:00",
-      "kept": 0
-    },
-    "PTT 政黑板": {
-      "ok": true,
-      "fetched": 18,
-      "errors": [],
-      "calls": 1,
-      "failed_calls": 0,
-      "last_attempt_at": "2026-11-20T09:12:58+00:00",
-      "last_success_at": "2026-11-20T09:12:58+00:00",
-      "kept": 5
+      "last_attempt_at": "2026-11-20T09:35:06+00:00",
+      "last_success_at": "2026-11-20T09:35:06+00:00",
+      "kept": 3
     },
     "Cofacts": {
       "ok": true,
@@ -62,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-20T09:12:58+00:00",
-      "last_success_at": "2026-11-20T09:12:58+00:00",
+      "last_attempt_at": "2026-11-20T09:35:06+00:00",
+      "last_success_at": "2026-11-20T09:35:06+00:00",
       "kept": 40
     }
   },
@@ -74,7 +72,7 @@
   },
   "start_date": "2026-01-01",
   "reclassified_at": "2026-10-27T15:14:17+00:00",
-  "headline_edited_total": 778,
+  "headline_edited_total": 779,
   "window": {
     "mode": "incremental",
     "when": "2d"
