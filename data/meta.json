@@ -1,18 +1,18 @@
 {
-  "updated_at": "2026-11-21T04:49:02+00:00",
+  "updated_at": "2026-11-21T05:12:05+00:00",
   "mode": "incremental",
-  "total": 41631,
-  "added": 23,
+  "total": 41652,
+  "added": 21,
   "sources": {
     "Google 新聞": {
       "ok": true,
-      "fetched": 353,
+      "fetched": 355,
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T04:49:02+00:00",
-      "last_success_at": "2026-11-21T04:49:02+00:00",
-      "kept": 259
+      "last_attempt_at": "2026-11-21T05:12:05+00:00",
+      "last_success_at": "2026-11-21T05:12:05+00:00",
+      "kept": 261
     },
     "台灣事實查核中心": {
       "ok": true,
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T04:49:02+00:00",
-      "last_success_at": "2026-11-21T04:49:02+00:00",
+      "last_attempt_at": "2026-11-21T05:12:05+00:00",
+      "last_success_at": "2026-11-21T05:12:05+00:00",
       "kept": 1
     },
     "MyGoPen": {
@@ -30,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T04:49:02+00:00",
-      "last_success_at": "2026-11-21T04:49:02+00:00",
+      "last_attempt_at": "2026-11-21T05:12:05+00:00",
+      "last_success_at": "2026-11-21T05:12:05+00:00",
       "kept": 1
     },
     "PTT 八卦板": {
@@ -42,7 +42,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-21T04:49:02+00:00",
+      "last_attempt_at": "2026-11-21T05:12:05+00:00",
       "last_success_at": "2026-11-21T04:04:45+00:00",
       "kept": 0
     },
@@ -54,7 +54,7 @@
       ],
       "calls": 1,
       "failed_calls": 1,
-      "last_attempt_at": "2026-11-21T04:49:02+00:00",
+      "last_attempt_at": "2026-11-21T05:12:05+00:00",
       "last_success_at": "2026-11-21T04:04:45+00:00",
       "kept": 0
     },
@@ -64,8 +64,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T04:49:02+00:00",
-      "last_success_at": "2026-11-21T04:49:02+00:00",
+      "last_attempt_at": "2026-11-21T05:12:05+00:00",
+      "last_success_at": "2026-11-21T05:12:05+00:00",
       "kept": 40
     }
   },
@@ -81,7 +81,7 @@
     "mode": "incremental",
     "when": "2d"
   },
-  "headline_edits": 2,
+  "headline_edits": 0,
   "history": {
     "months_scanned": 44,
     "oldest_month_scanned": "2022-05",
