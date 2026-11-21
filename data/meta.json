@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-11-21T19:17:38+00:00",
+  "updated_at": "2026-11-21T19:38:36+00:00",
   "mode": "incremental",
-  "total": 42473,
-  "added": 1,
+  "total": 42476,
+  "added": 3,
   "sources": {
     "Google 新聞": {
       "ok": true,
-      "fetched": 395,
+      "fetched": 397,
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T19:17:38+00:00",
-      "last_success_at": "2026-11-21T19:17:38+00:00",
+      "last_attempt_at": "2026-11-21T19:38:36+00:00",
+      "last_success_at": "2026-11-21T19:38:36+00:00",
       "kept": 275
     },
     "台灣事實查核中心": {
@@ -20,8 +20,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T19:17:38+00:00",
-      "last_success_at": "2026-11-21T19:17:38+00:00",
+      "last_attempt_at": "2026-11-21T19:38:36+00:00",
+      "last_success_at": "2026-11-21T19:38:36+00:00",
       "kept": 0
     },
     "MyGoPen": {
@@ -30,29 +30,33 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T19:17:38+00:00",
-      "last_success_at": "2026-11-21T19:17:38+00:00",
+      "last_attempt_at": "2026-11-21T19:38:36+00:00",
+      "last_success_at": "2026-11-21T19:38:36+00:00",
       "kept": 1
     },
     "PTT 八卦板": {
-      "ok": true,
-      "fetched": 20,
-      "errors": [],
+      "ok": false,
+      "fetched": 0,
+      "errors": [
+        "HTTPError: 522 Server Error: <none> for url: https://www.ptt.cc/atom/Gossiping.xml"
+      ],
       "calls": 1,
-      "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T19:17:38+00:00",
+      "failed_calls": 1,
+      "last_attempt_at": "2026-11-21T19:38:36+00:00",
       "last_success_at": "2026-11-21T19:17:38+00:00",
       "kept": 0
     },
     "PTT 政黑板": {
-      "ok": true,
-      "fetched": 20,
-      "errors": [],
+      "ok": false,
+      "fetched": 0,
+      "errors": [
+        "HTTPError: 522 Server Error: <none> for url: https://www.ptt.cc/atom/HatePolitics.xml"
+      ],
       "calls": 1,
-      "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T19:17:38+00:00",
+      "failed_calls": 1,
+      "last_attempt_at": "2026-11-21T19:38:36+00:00",
       "last_success_at": "2026-11-21T19:17:38+00:00",
-      "kept": 12
+      "kept": 0
     },
     "Cofacts": {
       "ok": true,
@@ -60,8 +64,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-21T19:17:38+00:00",
-      "last_success_at": "2026-11-21T19:17:38+00:00",
+      "last_attempt_at": "2026-11-21T19:38:36+00:00",
+      "last_success_at": "2026-11-21T19:38:36+00:00",
       "kept": 41
     }
   },
