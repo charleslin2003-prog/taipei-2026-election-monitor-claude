@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-22T12:46:25+00:00",
+  "updated_at": "2026-11-22T13:08:45+00:00",
   "mode": "incremental",
-  "total": 43455,
-  "added": 26,
+  "total": 43495,
+  "added": 40,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,20 +10,18 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-22T12:46:25+00:00",
-      "last_success_at": "2026-11-22T12:46:25+00:00",
-      "kept": 288
+      "last_attempt_at": "2026-11-22T13:08:45+00:00",
+      "last_success_at": "2026-11-22T13:08:45+00:00",
+      "kept": 292
     },
     "台灣事實查核中心": {
-      "ok": false,
-      "fetched": 0,
-      "errors": [
-        "ReadTimeout: HTTPSConnectionPool(host='tfc-taiwan.org.tw', port=443): Read timed out. (read timeout=25)"
-      ],
+      "ok": true,
+      "fetched": 10,
+      "errors": [],
       "calls": 1,
-      "failed_calls": 1,
-      "last_attempt_at": "2026-11-22T12:46:25+00:00",
-      "last_success_at": "2026-11-22T12:25:35+00:00",
+      "failed_calls": 0,
+      "last_attempt_at": "2026-11-22T13:08:45+00:00",
+      "last_success_at": "2026-11-22T13:08:45+00:00",
       "kept": 0
     },
     "MyGoPen": {
@@ -32,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-22T12:46:25+00:00",
-      "last_success_at": "2026-11-22T12:46:25+00:00",
+      "last_attempt_at": "2026-11-22T13:08:45+00:00",
+      "last_success_at": "2026-11-22T13:08:45+00:00",
       "kept": 1
     },
     "PTT 八卦板": {
@@ -42,19 +40,19 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-22T12:46:25+00:00",
-      "last_success_at": "2026-11-22T12:46:25+00:00",
-      "kept": 0
+      "last_attempt_at": "2026-11-22T13:08:45+00:00",
+      "last_success_at": "2026-11-22T13:08:45+00:00",
+      "kept": 1
     },
     "PTT 政黑板": {
       "ok": true,
-      "fetched": 20,
+      "fetched": 19,
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-22T12:46:25+00:00",
-      "last_success_at": "2026-11-22T12:46:25+00:00",
-      "kept": 8
+      "last_attempt_at": "2026-11-22T13:08:45+00:00",
+      "last_success_at": "2026-11-22T13:08:45+00:00",
+      "kept": 5
     },
     "Cofacts": {
       "ok": true,
@@ -62,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-22T12:46:25+00:00",
-      "last_success_at": "2026-11-22T12:46:25+00:00",
+      "last_attempt_at": "2026-11-22T13:08:45+00:00",
+      "last_success_at": "2026-11-22T13:08:45+00:00",
       "kept": 38
     }
   },
@@ -74,12 +72,12 @@
   },
   "start_date": "2026-01-01",
   "reclassified_at": "2026-10-27T15:14:17+00:00",
-  "headline_edited_total": 838,
+  "headline_edited_total": 839,
   "window": {
     "mode": "incremental",
     "when": "2d"
   },
-  "headline_edits": 0,
+  "headline_edits": 1,
   "history": {
     "months_scanned": 44,
     "oldest_month_scanned": "2022-05",
