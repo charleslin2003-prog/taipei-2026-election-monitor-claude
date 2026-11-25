@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-25T09:47:39+00:00",
+  "updated_at": "2026-11-25T10:10:06+00:00",
   "mode": "incremental",
-  "total": 46921,
-  "added": 4,
+  "total": 46950,
+  "added": 29,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,21 +10,19 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-25T09:47:39+00:00",
-      "last_success_at": "2026-11-25T09:47:39+00:00",
+      "last_attempt_at": "2026-11-25T10:10:06+00:00",
+      "last_success_at": "2026-11-25T10:10:06+00:00",
       "kept": 279
     },
     "台灣事實查核中心": {
-      "ok": false,
-      "fetched": 0,
-      "errors": [
-        "ReadTimeout: HTTPSConnectionPool(host='tfc-taiwan.org.tw', port=443): Read timed out. (read timeout=25)"
-      ],
+      "ok": true,
+      "fetched": 10,
+      "errors": [],
       "calls": 1,
-      "failed_calls": 1,
-      "last_attempt_at": "2026-11-25T09:47:39+00:00",
-      "last_success_at": "2026-11-25T09:24:05+00:00",
-      "kept": 0
+      "failed_calls": 0,
+      "last_attempt_at": "2026-11-25T10:10:06+00:00",
+      "last_success_at": "2026-11-25T10:10:06+00:00",
+      "kept": 1
     },
     "MyGoPen": {
       "ok": true,
@@ -32,28 +30,28 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-25T09:47:39+00:00",
-      "last_success_at": "2026-11-25T09:47:39+00:00",
+      "last_attempt_at": "2026-11-25T10:10:06+00:00",
+      "last_success_at": "2026-11-25T10:10:06+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
       "ok": true,
-      "fetched": 19,
+      "fetched": 20,
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-25T09:47:39+00:00",
-      "last_success_at": "2026-11-25T09:47:39+00:00",
-      "kept": 2
+      "last_attempt_at": "2026-11-25T10:10:06+00:00",
+      "last_success_at": "2026-11-25T10:10:06+00:00",
+      "kept": 0
     },
     "PTT 政黑板": {
       "ok": true,
-      "fetched": 18,
+      "fetched": 20,
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-25T09:47:39+00:00",
-      "last_success_at": "2026-11-25T09:47:39+00:00",
+      "last_attempt_at": "2026-11-25T10:10:06+00:00",
+      "last_success_at": "2026-11-25T10:10:06+00:00",
       "kept": 8
     },
     "Cofacts": {
@@ -62,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-25T09:47:39+00:00",
-      "last_success_at": "2026-11-25T09:47:39+00:00",
+      "last_attempt_at": "2026-11-25T10:10:06+00:00",
+      "last_success_at": "2026-11-25T10:10:06+00:00",
       "kept": 38
     }
   },
