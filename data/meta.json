@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-27T07:49:18+00:00",
+  "updated_at": "2026-11-27T08:10:07+00:00",
   "mode": "incremental",
-  "total": 49993,
-  "added": 27,
+  "total": 50026,
+  "added": 33,
   "sources": {
     "Google 新聞": {
       "ok": true,
@@ -10,21 +10,19 @@
       "errors": [],
       "calls": 4,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-27T07:49:18+00:00",
-      "last_success_at": "2026-11-27T07:49:18+00:00",
-      "kept": 257
+      "last_attempt_at": "2026-11-27T08:10:07+00:00",
+      "last_success_at": "2026-11-27T08:10:07+00:00",
+      "kept": 269
     },
     "台灣事實查核中心": {
-      "ok": false,
-      "fetched": 0,
-      "errors": [
-        "HTTPError: 521 Server Error: <none> for url: https://tfc-taiwan.org.tw/feed/"
-      ],
+      "ok": true,
+      "fetched": 10,
+      "errors": [],
       "calls": 1,
-      "failed_calls": 1,
-      "last_attempt_at": "2026-11-27T07:49:18+00:00",
-      "last_success_at": "2026-11-27T07:06:05+00:00",
-      "kept": 0
+      "failed_calls": 0,
+      "last_attempt_at": "2026-11-27T08:10:07+00:00",
+      "last_success_at": "2026-11-27T08:10:07+00:00",
+      "kept": 1
     },
     "MyGoPen": {
       "ok": true,
@@ -32,8 +30,8 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-27T07:49:18+00:00",
-      "last_success_at": "2026-11-27T07:49:18+00:00",
+      "last_attempt_at": "2026-11-27T08:10:07+00:00",
+      "last_success_at": "2026-11-27T08:10:07+00:00",
       "kept": 2
     },
     "PTT 八卦板": {
@@ -42,9 +40,9 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-27T07:49:18+00:00",
-      "last_success_at": "2026-11-27T07:49:18+00:00",
-      "kept": 3
+      "last_attempt_at": "2026-11-27T08:10:07+00:00",
+      "last_success_at": "2026-11-27T08:10:07+00:00",
+      "kept": 2
     },
     "PTT 政黑板": {
       "ok": true,
@@ -52,9 +50,9 @@
       "errors": [],
       "calls": 1,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-27T07:49:18+00:00",
-      "last_success_at": "2026-11-27T07:49:18+00:00",
-      "kept": 5
+      "last_attempt_at": "2026-11-27T08:10:07+00:00",
+      "last_success_at": "2026-11-27T08:10:07+00:00",
+      "kept": 8
     },
     "Cofacts": {
       "ok": true,
@@ -62,8 +60,8 @@
       "errors": [],
       "calls": 2,
       "failed_calls": 0,
-      "last_attempt_at": "2026-11-27T07:49:18+00:00",
-      "last_success_at": "2026-11-27T07:49:18+00:00",
+      "last_attempt_at": "2026-11-27T08:10:07+00:00",
+      "last_success_at": "2026-11-27T08:10:07+00:00",
       "kept": 38
     }
   },
